@@ -137,7 +137,7 @@ def run_experiment(config_path):
     
     # Set up results directory
     results_dir = config.get('results_dir', 'results')
-    results_dir = f"{results_dir}_{timestamp}"
+    results_dir = f"results/{results_dir}_{timestamp}"
     os.makedirs(results_dir, exist_ok=True)
     
     # Create subdirectories
