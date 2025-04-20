@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: tensor_defense_vlm
+Version: 0.1.0
+Summary: Tensor Decomposition Defense for Vision-Language Models
+Author: Het Patel
+Author-email: hpate061@ucr.edu
+Requires-Dist: torch>=1.12.0
+Requires-Dist: torchvision>=0.13.0
+Requires-Dist: transformers>=4.25.0
+Requires-Dist: tensorly>=0.7.0
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: scikit-learn>=1.0.0
+Requires-Dist: tqdm>=4.64.0
+Requires-Dist: pandas>=1.4.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: datasets>=2.8.0
+Requires-Dist: Pillow>=9.3.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: summary

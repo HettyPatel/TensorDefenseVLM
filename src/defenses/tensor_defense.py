@@ -9,7 +9,7 @@ import torch
 import logging
 import tensorly as tl
 from tensorly.decomposition import parafac, tucker, tensor_train
-from .base import BaseTensorDefense
+from src.defenses.base import BaseTensorDefense
 
 logger = logging.getLogger("tensor_defense")
 
