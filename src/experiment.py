@@ -106,10 +106,19 @@ def run_experiment(config_path):
     all_results = {}
     
     # Process first batch for demonstration
-    batch = next(iter(dataloader))
-    image_ids = batch['image_id']
-    images = batch['image']
-    captions = batch['caption']
+    all_image_ids = []
+    all_images = []
+    all_captions = []
+
+    for batch in dataloader:
+        all_image_ids.extend(batch['image_id'])
+        all_images.extend(batch['image'])
+        all_captions.extend(batch['caption'])
+        
+    # Use the accumulated data
+    image_ids = all_image_ids
+    images = all_images
+    captions = all_captions
     
     # Generate adversarial examples
     adv_images, inputs, orig_images = attack.perturb(images, captions, device)

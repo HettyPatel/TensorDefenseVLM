@@ -3,8 +3,8 @@
 # General settings
 seed: 42
 results_dir: "results"
-batch_size: 64
-num_workers: 4
+batch_size: 8
+num_workers: 1
 
 # Model configuration
 model:
