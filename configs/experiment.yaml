@@ -7,7 +7,7 @@ random_seed: 42
 results_dir: "results"
 
 # Maximum number of batches to process (set to null to process all)
-max_batches: 5
+max_batches: null
 
 # Model configuration
 model:
@@ -25,101 +25,83 @@ dataset:
 # Attack configuration
 attack:
   type: "pgd" # "pgd" or "fgsm"
-  epsilon: 0.0313 # 8/255
+  epsilon: 0.0156863 # 4/255 - Weaker attack
   steps: 2 # Number of attack steps (for PGD)
-  step_size: 0.0235 # 6/255 (for PGD)
+  step_size: 0.0078431 # 2/255 - Smaller step size
   random_start: true # Whether to use random initialization (for PGD)
 
 # Defense configurations
 defenses:
-  # CP Decomposition on final normalization layer
-  - name: "CP Final Norm (R=64, alpha=0.5)"
+  # Lower alpha values for stronger defense effect
+  - name: "CP Final Norm (R=64, alpha=0.25)"
+    type: "targeted"
+    method: "cp"
+    rank: 64
+    alpha: 0.25 # Lower alpha = more emphasis on decomposed representation
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  # Earlier layer in the network
+  - name: "CP Final Norm (R=64, alpha=0.5, Layer=-3)"
     type: "targeted"
     method: "cp"
     rank: 64
     alpha: 0.5
     target_layer: "final_norm"
-    vision_layer_idx: -1
+    vision_layer_idx: -3 # Earlier layer
 
-  # Compare different alpha values
-  - name: "CP Final Norm (R=64, alpha=0.3)"
+  # Very low rank to remove more perturbations
+  - name: "CP Final Norm (R=16, alpha=0.5)"
     type: "targeted"
     method: "cp"
-    rank: 64
-    alpha: 0.3
+    rank: 16 # Lower rank = stronger filtering
+    alpha: 0.5
     target_layer: "final_norm"
     vision_layer_idx: -1
 
-  - name: "CP Final Norm (R=64, alpha=0.7)"
-    type: "targeted"
-    method: "cp"
-    rank: 64
-    alpha: 0.7
-    target_layer: "final_norm"
-    vision_layer_idx: -1
-
-  # Compare different ranks
-  - name: "CP Final Norm (R=32, alpha=0.5)"
+  # Combination of low alpha and earlier layer
+  - name: "CP Final Norm (R=32, alpha=0.3, Layer=-2)"
     type: "targeted"
     method: "cp"
     rank: 32
-    alpha: 0.5
+    alpha: 0.3
     target_layer: "final_norm"
-    vision_layer_idx: -1
+    vision_layer_idx: -2
 
-  - name: "CP Final Norm (R=128, alpha=0.5)"
+  # Very aggressive defense
+  - name: "CP Final Norm (R=16, alpha=0.2)"
     type: "targeted"
     method: "cp"
-    rank: 128
-    alpha: 0.5
+    rank: 16
+    alpha: 0.2 # Very low alpha = very little original representation
     target_layer: "final_norm"
     vision_layer_idx: -1
 
-  # Compare different decomposition methods
-  - name: "Tucker Final Norm (R=64, alpha=0.5)"
-    type: "targeted"
-    method: "tucker"
-    rank: 64
-    alpha: 0.5
-    target_layer: "final_norm"
-    vision_layer_idx: -1
-
-  - name: "TT Final Norm (R=64, alpha=0.5)"
-    type: "targeted"
-    method: "tt"
-    rank: 64
-    alpha: 0.5
-    target_layer: "final_norm"
-    vision_layer_idx: -1
-
-  # Compare different layer types
-  - name: "CP Attention (R=64, alpha=0.5)"
+  # Target attention layer with stronger settings
+  - name: "CP Attention (R=32, alpha=0.3)"
     type: "targeted"
     method: "cp"
-    rank: 64
-    alpha: 0.5
+    rank: 32
+    alpha: 0.3
     target_layer: "attention"
     vision_layer_idx: -1
 
-  - name: "CP MLP (R=64, alpha=0.5)"
-    type: "targeted"
-    method: "cp"
-    rank: 64
-    alpha: 0.5
-    target_layer: "mlp"
-    vision_layer_idx: -1
-
-  # Multi-layer defense example
-  - name: "Multi-Layer Defense (2 Layers)"
+  # Multi-layer defense with stronger settings
+  - name: "Multi-Layer Defense (3 Layers)"
     type: "multilayer"
     layer_configs:
       - method: "cp"
-        rank: 64
-        alpha: 0.5
+        rank: 32
+        alpha: 0.4
         target_layer: "final_norm"
         vision_layer_idx: -1
       - method: "cp"
-        rank: 64
-        alpha: 0.5
+        rank: 32
+        alpha: 0.4
         target_layer: "final_norm"
         vision_layer_idx: -2
+      - method: "cp"
+        rank: 32
+        alpha: 0.4
+        target_layer: "final_norm"
+        vision_layer_idx: -3
