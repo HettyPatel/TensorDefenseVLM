@@ -1,0 +1,573 @@
+2025-04-20 10:28:18,008 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 10:28:18,027 - tensor_defense - INFO - Using device: cuda
+2025-04-20 10:28:18,031 - tensor_defense - INFO - Loading model: clip vit-b/32
+2025-04-20 10:28:18,031 - tensor_defense - ERROR - Error loading model clip vit-b/32: Incorrect path_or_model_id: 'openai/clip-vit-b/32'. Please provide either the path to a local folder or the repo_id of a model on the Hub.
+2025-04-20 10:30:53,039 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 10:30:53,060 - tensor_defense - INFO - Using device: cuda
+2025-04-20 10:30:53,063 - tensor_defense - INFO - Loading model: clip vit-b-32
+2025-04-20 10:30:53,241 - tensor_defense - ERROR - Error loading model clip vit-b-32: openai/clip-vit-b-32 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `huggingface-cli login` or by passing `token=<your_token>`
+2025-04-20 10:34:44,668 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 10:34:44,689 - tensor_defense - INFO - Using device: cuda
+2025-04-20 10:34:44,692 - tensor_defense - INFO - Loading model: clip vit-base-patch32
+2025-04-20 10:34:47,794 - tensor_defense - INFO - Loaded CLIP model: openai/clip-vit-base-patch32
+2025-04-20 10:34:47,794 - tensor_defense - INFO - Loading dataset: nlphuji/flickr30k, split: test, max_samples: 100
+2025-04-20 10:34:52,460 - tensor_defense - INFO - Initialized dataset with 100 samples
+2025-04-20 10:34:52,460 - tensor_defense - INFO - Configuring PGD attack: epsilon=0.0313725, steps=2, step_size=0.0235294
+2025-04-20 10:34:52,460 - root - INFO - Initialized PGD attack with epsilon=0.0313725, alpha=0.0235294, steps=2
+2025-04-20 10:34:52,460 - root - INFO - Random start: True, Targeted: False
+2025-04-20 10:34:52,460 - tensor_defense - INFO - Generating adversarial examples
+2025-04-20 10:34:59,896 - tensor_defense - INFO - Saved sample pair 1/5
+2025-04-20 10:35:00,251 - tensor_defense - INFO - Saved sample pair 2/5
+2025-04-20 10:35:00,589 - tensor_defense - INFO - Saved sample pair 3/5
+2025-04-20 10:35:00,951 - tensor_defense - INFO - Saved sample pair 4/5
+2025-04-20 10:35:01,306 - tensor_defense - INFO - Saved sample pair 5/5
+2025-04-20 10:35:01,307 - tensor_defense - INFO - Saved 5 sample image pairs to results\samples
+2025-04-20 10:35:01,591 - tensor_defense - INFO - 
+No Defense Evaluation Results:
+2025-04-20 10:35:01,591 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:01,591 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:01,591 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Adversarial (With No Defense): 0.9688
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,592 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Adversarial (With No Defense): 1.0000
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,592 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Adversarial (With No Defense): 1.0000
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,592 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,593 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.5)
+2025-04-20 10:35:01,594 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:01,594 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:01,594 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:01,819 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:01,819 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:01,819 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:01,819 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:01,819 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 0.9688
+2025-04-20 10:35:01,819 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,819 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,819 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,820 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,820 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,820 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:01,821 - tensor_defense - INFO - Evaluating defense: CP Attention (R=64, alpha=0.5)
+2025-04-20 10:35:01,821 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 10:35:01,821 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 10:35:01,821 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:01,821 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:01,977 - tensor_defense - INFO - 
+CP Attention (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:01,977 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 0.9688
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,977 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:01,977 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 0.9844
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Improvement: -1.56%
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,978 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:01,978 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:01,978 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:01,978 - tensor_defense - INFO - Evaluating defense: CP MLP (R=64, alpha=0.5)
+2025-04-20 10:35:01,978 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 10:35:01,978 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 10:35:01,979 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:01,979 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,103 - tensor_defense - INFO - 
+CP MLP (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:02,103 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,103 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,103 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 0.9688
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,104 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,104 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,104 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,105 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,105 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,105 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,105 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,105 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,105 - tensor_defense - INFO - Evaluating defense: Tucker Final Norm (R=64, alpha=0.5)
+2025-04-20 10:35:02,105 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,105 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,105 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:02,105 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,392 - tensor_defense - INFO - 
+Tucker Final Norm (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:02,392 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,392 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,392 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,392 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 0.9688
+2025-04-20 10:35:02,392 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,392 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,392 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,393 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,393 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,393 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,393 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.3)
+2025-04-20 10:35:02,393 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,393 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,394 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 10:35:02,394 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,535 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.3) Evaluation Results:
+2025-04-20 10:35:02,535 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,535 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,535 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 0.9688
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,536 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 1.0000
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,536 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,536 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,537 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 1.0000
+2025-04-20 10:35:02,537 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,537 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,537 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,537 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.7)
+2025-04-20 10:35:02,537 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,537 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,537 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 10:35:02,537 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,671 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.7) Evaluation Results:
+2025-04-20 10:35:02,671 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 0.9688
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,671 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,671 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 1.0000
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,672 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 1.0000
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,672 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,672 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,672 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=32, alpha=0.5)
+2025-04-20 10:35:02,673 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,673 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,673 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 10:35:02,673 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,817 - tensor_defense - INFO - 
+CP Final Norm (R=32, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:02,817 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 0.9688
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,817 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,817 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,818 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,818 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,818 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,818 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=128, alpha=0.5)
+2025-04-20 10:35:02,818 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,818 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,819 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 10:35:02,819 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,987 - tensor_defense - INFO - 
+CP Final Norm (R=128, alpha=0.5) Evaluation Results:
+2025-04-20 10:35:02,988 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 0.9688
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,988 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:02,988 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,989 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 1.0000
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:02,989 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:02,989 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:02,989 - tensor_defense - INFO - Evaluating defense: CP Multi-Layer (2 Layers)
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:35:02,990 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 10:35:02,990 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:03,232 - tensor_defense - INFO - 
+CP Multi-Layer (2 Layers) Evaluation Results:
+2025-04-20 10:35:03,232 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:35:03,232 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:35:03,232 - tensor_defense - INFO -     Adversarial (No Defense): 0.9688
+2025-04-20 10:35:03,232 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 0.9688
+2025-04-20 10:35:03,232 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:03,232 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:03,232 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 1.0000
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:03,233 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:35:03,233 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:35:03,234 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 1.0000
+2025-04-20 10:35:03,234 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:35:03,234 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:35:03,234 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:03,234 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:03,234 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:03,234 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 10:35:03,234 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:35:03,482 - tensor_defense - INFO - Saved comparison plot to results\defense_comparison_r1.png
+2025-04-20 10:35:03,836 - tensor_defense - INFO - Saved comparison plot to results\defense_comparison_r5.png
+2025-04-20 10:35:03,837 - tensor_defense - INFO - Experiment completed. Results saved to results
+2025-04-20 10:35:03,851 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 10:35:03,852 - tensor_defense - INFO - Experiment completed
+2025-04-20 10:38:52,985 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 10:38:53,006 - tensor_defense - INFO - Using device: cuda
+2025-04-20 10:38:53,009 - tensor_defense - INFO - Loading model: clip vit-base-patch32
+2025-04-20 10:38:54,463 - tensor_defense - INFO - Loaded CLIP model: openai/clip-vit-base-patch32
+2025-04-20 10:38:54,464 - tensor_defense - INFO - Loading dataset: nlphuji/flickr30k, split: test, max_samples: 100
+2025-04-20 10:38:55,969 - tensor_defense - INFO - Initialized dataset with 100 samples
+2025-04-20 10:38:55,969 - tensor_defense - INFO - Configuring PGD attack: epsilon=0.0313725, steps=10, step_size=0.0235294
+2025-04-20 10:38:55,969 - root - INFO - Initialized PGD attack with epsilon=0.0313725, alpha=0.0235294, steps=10
+2025-04-20 10:38:55,969 - root - INFO - Random start: True, Targeted: False
+2025-04-20 10:38:55,969 - tensor_defense - INFO - Generating adversarial examples
+2025-04-20 10:39:04,255 - tensor_defense - INFO - Saved sample pair 1/5
+2025-04-20 10:39:04,592 - tensor_defense - INFO - Saved sample pair 2/5
+2025-04-20 10:39:04,933 - tensor_defense - INFO - Saved sample pair 3/5
+2025-04-20 10:39:05,278 - tensor_defense - INFO - Saved sample pair 4/5
+2025-04-20 10:39:05,624 - tensor_defense - INFO - Saved sample pair 5/5
+2025-04-20 10:39:05,624 - tensor_defense - INFO - Saved 5 sample image pairs to results\samples
+2025-04-20 10:39:05,867 - tensor_defense - INFO - 
+No Defense Evaluation Results:
+2025-04-20 10:39:05,867 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:05,867 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:05,867 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:05,867 - tensor_defense - INFO -     Adversarial (With No Defense): 0.9844
+2025-04-20 10:39:05,867 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:05,868 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Adversarial (With No Defense): 1.0000
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:05,868 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:05,868 - tensor_defense - INFO -     Adversarial (With No Defense): 1.0000
+2025-04-20 10:39:05,869 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:05,869 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:05,869 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.5)
+2025-04-20 10:39:05,870 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:05,870 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:05,870 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:06,064 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:06,064 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,064 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,064 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,064 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 0.9844
+2025-04-20 10:39:06,064 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,065 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,065 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,065 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,066 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,066 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,066 - tensor_defense - INFO - Evaluating defense: CP Attention (R=64, alpha=0.5)
+2025-04-20 10:39:06,066 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 10:39:06,066 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 10:39:06,066 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:06,066 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,209 - tensor_defense - INFO - 
+CP Attention (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:06,209 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,209 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,209 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,209 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 0.9844
+2025-04-20 10:39:06,209 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,210 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,210 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,210 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,211 - tensor_defense - INFO -     Adversarial (With CP Attention (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,211 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,211 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,211 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,211 - tensor_defense - INFO - Evaluating defense: CP MLP (R=64, alpha=0.5)
+2025-04-20 10:39:06,211 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 10:39:06,211 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 10:39:06,211 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:06,211 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,348 - tensor_defense - INFO - 
+CP MLP (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:06,348 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,348 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,348 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,348 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 0.9844
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,349 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,349 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,349 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,350 - tensor_defense - INFO -     Adversarial (With CP MLP (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,350 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,350 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,350 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,350 - tensor_defense - INFO - Evaluating defense: Tucker Final Norm (R=64, alpha=0.5)
+2025-04-20 10:39:06,350 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:06,350 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:06,350 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:06,350 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,611 - tensor_defense - INFO - 
+Tucker Final Norm (R=64, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:06,612 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 0.9844
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,612 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,612 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,612 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,613 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,613 - tensor_defense - INFO -     Adversarial (With Tucker Final Norm (R=64, alpha=0.5)): 1.0000
+2025-04-20 10:39:06,613 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,613 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,613 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,613 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.3)
+2025-04-20 10:39:06,613 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:06,613 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:06,613 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 10:39:06,613 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,758 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.3) Evaluation Results:
+2025-04-20 10:39:06,758 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,758 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 0.9688
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Improvement: -1.59%
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,759 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 1.0000
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,759 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,760 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,760 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,760 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,760 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.3)): 1.0000
+2025-04-20 10:39:06,760 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,760 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,760 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,760 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=64, alpha=0.7)
+2025-04-20 10:39:06,760 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:06,760 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:06,760 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 10:39:06,761 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,905 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.7) Evaluation Results:
+2025-04-20 10:39:06,905 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:06,905 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:06,905 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:06,905 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 0.9844
+2025-04-20 10:39:06,905 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,906 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 1.0000
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,906 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:06,906 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:06,907 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:06,907 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=64, alpha=0.7)): 1.0000
+2025-04-20 10:39:06,907 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:06,907 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:06,907 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:06,907 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=32, alpha=0.5)
+2025-04-20 10:39:06,907 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:06,907 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:06,907 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 10:39:06,908 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,019 - tensor_defense - INFO - 
+CP Final Norm (R=32, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:07,019 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 0.9844
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,019 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:07,019 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 1.0000
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,020 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=32, alpha=0.5)): 1.0000
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,020 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,020 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,020 - tensor_defense - INFO - Evaluating defense: CP Final Norm (R=128, alpha=0.5)
+2025-04-20 10:39:07,020 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:07,020 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:07,020 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 10:39:07,020 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,189 - tensor_defense - INFO - 
+CP Final Norm (R=128, alpha=0.5) Evaluation Results:
+2025-04-20 10:39:07,189 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:07,189 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:07,189 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:07,189 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 0.9844
+2025-04-20 10:39:07,189 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,189 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,190 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 1.0000
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,190 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Adversarial (With CP Final Norm (R=128, alpha=0.5)): 1.0000
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,190 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,191 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Evaluating defense: CP Multi-Layer (2 Layers)
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 10:39:07,191 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 10:39:07,191 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,414 - tensor_defense - INFO - 
+CP Multi-Layer (2 Layers) Evaluation Results:
+2025-04-20 10:39:07,415 - tensor_defense - INFO -   Recall@1:
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Clean: 0.9062
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Adversarial (No Defense): 0.9844
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 0.9531
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Improvement: -3.17%
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,415 - tensor_defense - INFO -   Recall@5:
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Clean: 0.9531
+2025-04-20 10:39:07,415 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 1.0000
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,416 - tensor_defense - INFO -   Recall@10:
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Clean: 1.0000
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Adversarial (No Defense): 1.0000
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Adversarial (With CP Multi-Layer (2 Layers)): 1.0000
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Improvement: 0.00%
+2025-04-20 10:39:07,416 - tensor_defense - INFO -     Performance Recovery: 0.00% of the adversarial drop
+2025-04-20 10:39:07,416 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,416 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,417 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,417 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 10:39:07,417 - tensor_defense - INFO - All hooks removed
+2025-04-20 10:39:07,641 - tensor_defense - INFO - Saved comparison plot to results\defense_comparison_r1.png
+2025-04-20 10:39:07,998 - tensor_defense - INFO - Saved comparison plot to results\defense_comparison_r5.png
+2025-04-20 10:39:07,998 - tensor_defense - INFO - Experiment completed. Results saved to results
+2025-04-20 10:39:08,013 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 10:39:08,015 - tensor_defense - INFO - Experiment completed
