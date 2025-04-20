@@ -135,10 +135,10 @@ class PGDAttack:
                         # For targeted attack, maximize similarity to target captions
                         target_similarities = target_logits[torch.arange(batch_size), targets]
                         # Minimize original similarity, maximize target similarity
-                        loss = -target_similarities.sum() + matched_similarities.sum()
+                        loss = matched_similarities.sum() - target_similarities.sum()
                     else:
                         # For untargeted attack, minimize similarity to original captions
-                        loss = -matched_similarities.sum()
+                        loss = matched_similarities.sum()
                     
                 else:
                     # For BLIP-like models
@@ -163,12 +163,12 @@ class PGDAttack:
                         
                         if self.targeted and target_captions is not None:
                             target_similarities = target_outputs.logits_per_image[torch.arange(batch_size), targets]
-                            loss = -target_similarities.sum() + matched_similarities.sum()
+                            loss = matched_similarities.sum() - target_similarities.sum()
                         else:
-                            loss = -matched_similarities.sum()
+                            loss = matched_similarities.sum()
                     else:
                         # Fallback for other model types
-                        loss = -outputs.similarity_scores.mean()
+                        loss = outputs.similarity_scores.mean()
             
             # Zero all existing gradients
             self.model.zero_grad()
