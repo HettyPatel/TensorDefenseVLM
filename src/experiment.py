@@ -7,6 +7,9 @@ import torch
 import logging
 import argparse
 import yaml
+import time
+import json
+import pandas as pd
 from datasets import load_dataset
 from torch.utils.data import DataLoader
 
@@ -45,10 +48,32 @@ def run_experiment(config_path):
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
-    # Create results directory
-    results_dir = config.get('results_dir', 'results')
+    # Extract experiment name from config path or use timestamp
+    if isinstance(config_path, str):
+        experiment_name = os.path.basename(config_path).replace('.yaml', '')
+    else:
+        experiment_name = f"experiment_{time.strftime('%Y%m%d_%H%M%S')}"
+    
+    # Create experiment-specific results directory
+    base_results_dir = config.get('results_dir', 'results')
+    results_dir = os.path.join(base_results_dir, experiment_name)
     os.makedirs(results_dir, exist_ok=True)
-    os.makedirs(os.path.join(results_dir, 'samples'), exist_ok=True)
+    
+    # Create subdirectories for different outputs
+    figures_dir = os.path.join(results_dir, 'figures')
+    samples_dir = os.path.join(results_dir, 'samples')
+    metrics_dir = os.path.join(results_dir, 'metrics')
+    
+    os.makedirs(figures_dir, exist_ok=True)
+    os.makedirs(samples_dir, exist_ok=True)
+    os.makedirs(metrics_dir, exist_ok=True)
+    
+    # Save config to the experiment directory
+    with open(os.path.join(results_dir, 'config.yaml'), 'w') as f:
+        yaml.dump(config, f)
+    
+    logger.info(f"Running experiment: {experiment_name}")
+    logger.info(f"Results will be saved to: {results_dir}")
     
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -136,7 +161,7 @@ def run_experiment(config_path):
                 epsilon=epsilon,
                 steps=steps,
                 step_size=step_size,
-                save_dir=os.path.join(results_dir, 'samples')
+                save_dir=samples_dir  # Use experiment-specific samples directory
             )
         
         # Calculate similarity matrices
@@ -309,11 +334,161 @@ def run_experiment(config_path):
     # Print final metrics
     print_metrics_summary(all_results)
     
-    # Create and save comparison plot
+    # Create standard comparison plot (current code)
     comparison_plot = create_recall_comparison_plot(all_results)
-    comparison_plot.savefig(os.path.join(results_dir, 'defense_comparison.png'))
+    comparison_plot.savefig(os.path.join(figures_dir, 'defense_comparison.png'))
+
+    # Generate all paper plots
+    visualize_experiment_results(all_results, config, figures_dir)  # Pass figures_dir instead of results_dir
+
+    # Save metrics to CSV in the metrics directory
+    metrics_df = pd.DataFrame()
+    for defense_name, defense_results in all_results.items():
+        row = {
+            'defense': defense_name,
+            'clean_recall@1': defense_results['recall@1'],
+            'clean_recall@5': defense_results['recall@5'],
+            'clean_recall@10': defense_results['recall@10'],
+            'adversarial_recall@1': defense_results['recall@1'],
+            'adversarial_recall@5': defense_results['recall@5'],
+            'adversarial_recall@10': defense_results['recall@10'],
+        }
+        metrics_df = pd.concat([metrics_df, pd.DataFrame([row])], ignore_index=True)
     
-    logger.info(f"Experiment completed. Results saved to {results_dir}")
+    metrics_df.to_csv(os.path.join(metrics_dir, 'metrics.csv'), index=False)
+    
+    # Save full results as JSON
+    with open(os.path.join(results_dir, 'results.json'), 'w') as f:
+        json.dump(all_results, f, indent=2)
+    
+    logger.info(f"Experiment {experiment_name} completed. Results saved to {results_dir}")
+    
+    return results_dir, all_results
+
+def visualize_experiment_results(all_results, config, results_dir):
+    """Create all visualization plots for experiment results"""
+    figures_dir = os.path.join(results_dir, 'figures')
+    os.makedirs(figures_dir, exist_ok=True)
+    
+    # Format for visualization functions
+    plot_format = {
+        'clean': {
+            'recall@1': all_results['clean']['recall@1'],
+            'recall@5': all_results['clean']['recall@5'],
+            'recall@10': all_results['clean']['recall@10']
+        },
+        'adversarial': {
+            'recall@1': all_results['adversarial']['recall@1'],
+            'recall@5': all_results['adversarial']['recall@5'],
+            'recall@10': all_results['adversarial']['recall@10']
+        }
+    }
+    
+    # Add defense results
+    for defense_name, defense_results in all_results.items():
+        if defense_name not in ['clean', 'adversarial']:
+            plot_format[defense_name] = {
+                'recall@1': defense_results['recall@1'],
+                'recall@5': defense_results['recall@5'], 
+                'recall@10': defense_results['recall@10']
+            }
+    
+    # Extract parameter sensitivity data
+    param_results = {}
+    
+    # Group by rank (looking for defenses with same method, alpha, layer but different ranks)
+    rank_defenses = {}
+    for defense in config['defenses']:
+        if 'layers' not in defense:  # Skip multi-layer defenses
+            key = (defense.get('method', 'cp'), 
+                   defense.get('alpha', 0.5), 
+                   defense.get('target_layer', 'final_norm'))
+            rank = defense.get('rank', 64)
+            if key not in rank_defenses:
+                rank_defenses[key] = []
+            rank_defenses[key].append((rank, defense['name']))
+    
+    # Find a consistent set for rank analysis 
+    for key, defenses in rank_defenses.items():
+        if len(defenses) >= 3:  # Need at least 3 points for a good plot
+            method, alpha, target_layer = key
+            # This is a valid rank parameter sweep
+            rank_results = {}
+            for rank, name in defenses:
+                if name in all_results:
+                    rank_results[rank] = {
+                        'recall@1': all_results[name]['recall@1'],
+                        'recall@5': all_results[name]['recall@5'],
+                        'recall@10': all_results[name]['recall@10']
+                    }
+            if rank_results:
+                param_results['rank'] = rank_results
+                break
+    
+    # Group by alpha (looking for defenses with same method, rank, layer but different alphas)
+    alpha_defenses = {}
+    for defense in config['defenses']:
+        if 'layers' not in defense:  # Skip multi-layer defenses
+            key = (defense.get('method', 'cp'), 
+                   defense.get('rank', 64), 
+                   defense.get('target_layer', 'final_norm'))
+            alpha = defense.get('alpha', 0.5)
+            if key not in alpha_defenses:
+                alpha_defenses[key] = []
+            alpha_defenses[key].append((alpha, defense['name']))
+    
+    # Find a consistent set for alpha analysis
+    for key, defenses in alpha_defenses.items():
+        if len(defenses) >= 3:  # Need at least 3 points for a good plot
+            method, rank, target_layer = key
+            # This is a valid alpha parameter sweep
+            alpha_results = {}
+            for alpha, name in defenses:
+                if name in all_results:
+                    alpha_results[alpha] = {
+                        'recall@1': all_results[name]['recall@1'],
+                        'recall@5': all_results[name]['recall@5'],
+                        'recall@10': all_results[name]['recall@10']
+                    }
+            if alpha_results:
+                param_results['alpha'] = alpha_results
+                break
+    
+    # Group by layer type (looking for defenses with same method, rank, alpha but different layers)
+    layer_defenses = {}
+    for defense in config['defenses']:
+        if 'layers' not in defense:  # Skip multi-layer defenses
+            key = (defense.get('method', 'cp'), 
+                   defense.get('rank', 64), 
+                   defense.get('alpha', 0.5))
+            layer = defense.get('target_layer', 'final_norm')
+            if key not in layer_defenses:
+                layer_defenses[key] = {}
+            layer_defenses[key][layer] = defense['name']
+    
+    # Find a consistent set for layer analysis
+    layer_results = None
+    for key, layers in layer_defenses.items():
+        if len(layers) >= 2:  # Need at least 2 different layers
+            # This is a valid layer analysis set
+            method, rank, alpha = key
+            temp_results = {}
+            for layer_name, defense_name in layers.items():
+                if defense_name in all_results:
+                    temp_results[layer_name] = {
+                        'recall@1': all_results[defense_name]['recall@1'],
+                        'recall@5': all_results[defense_name]['recall@5'],
+                        'recall@10': all_results[defense_name]['recall@10']
+                    }
+            if temp_results:
+                layer_results = temp_results
+                break
+    
+    # Generate all plots
+    create_all_paper_plots(plot_format, param_results, layer_results, save_dir=figures_dir)
+    logger.info(f"All visualization plots saved to {figures_dir}")
+    
+    return figures_dir
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run tensor decomposition defense experiment')

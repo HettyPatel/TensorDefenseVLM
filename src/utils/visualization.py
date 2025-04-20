@@ -184,41 +184,110 @@ def create_recovery_plot(results):
     return plt.gcf()
 
 def create_parameter_sensitivity_plot(param_results, param_name='rank'):
-    """Create plot showing sensitivity to a parameter (rank or alpha)"""
+    """Create publication-quality plot showing sensitivity to a parameter (rank or alpha)"""
     param_values = sorted(param_results.keys())
     recall_values = [param_results[param]['recall@1'] * 100 for param in param_values]
     
     plt.figure(figsize=(10, 6))
-    plt.plot(param_values, recall_values, marker='o', linewidth=2, markersize=8)
     
+    # Use better color palette and styling
+    plt.plot(param_values, recall_values, marker='o', linewidth=3, markersize=10, 
+             color='#1f77b4', markeredgecolor='white', markeredgewidth=2)
+    
+    # Add data points with clear labels
     for x, y in zip(param_values, recall_values):
-        plt.text(x, y + 1, f'{y:.1f}%', ha='center', va='bottom')
+        plt.annotate(f'{y:.1f}%', 
+                    xy=(x, y), 
+                    xytext=(0, 10),
+                    textcoords='offset points',
+                    ha='center', 
+                    va='bottom',
+                    fontsize=12,
+                    fontweight='bold',
+                    bbox=dict(boxstyle='round,pad=0.3', fc='white', ec='gray', alpha=0.7))
     
-    plt.xlabel(f'{param_name.title()} Value', fontsize=12)
-    plt.ylabel('Recall@1 (%)', fontsize=12)
-    plt.title(f'Sensitivity to {param_name.title()} Parameter', fontsize=14)
-    plt.grid(True, linestyle='--', alpha=0.3)
+    # Enhanced styling
+    plt.xlabel(f'{param_name.title()} Value', fontsize=14, fontweight='bold')
+    plt.ylabel('Recall@1 (%)', fontsize=14, fontweight='bold')
+    plt.title(f'Sensitivity to {param_name.title()} Parameter', fontsize=16, fontweight='bold')
+    
+    # Better grid
+    plt.grid(True, linestyle='--', alpha=0.7, color='gray')
+    
+    # Add a light background color for better contrast
+    plt.gca().set_facecolor('#f8f9fa')
+    
+    # Add a subtle box around the plot
+    plt.gca().spines['top'].set_visible(True)
+    plt.gca().spines['right'].set_visible(True)
+    plt.gca().spines['bottom'].set_visible(True)
+    plt.gca().spines['left'].set_visible(True)
+    for spine in plt.gca().spines.values():
+        spine.set_color('gray')
+        spine.set_linewidth(1.5)
+    
+    # Make tick labels bigger
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    
+    # Add horizontal lines for each data point to aid readability
+    for y_val in recall_values:
+        plt.axhline(y=y_val, color='gray', linestyle=':', alpha=0.5)
+    
     plt.tight_layout()
     
     return plt.gcf()
 
 def create_layer_analysis_plot(layer_results):
-    """Create plot comparing performance across different layers"""
+    """Create publication-quality plot comparing performance across different layers"""
     layer_names = list(layer_results.keys())
     recall_values = [layer_results[layer]['recall@1'] * 100 for layer in layer_names]
     
     plt.figure(figsize=(12, 6))
-    x = np.arange(len(layer_names))
-    plt.bar(x, recall_values, color='#1f77b4')
     
-    for i, v in enumerate(recall_values):
-        plt.text(i, v + 1, f'{v:.1f}%', ha='center', va='bottom')
+    # Use a nicer color palette
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
     
-    plt.xlabel('Layer', fontsize=12)
-    plt.ylabel('Recall@1 (%)', fontsize=12)
-    plt.title('Performance Across Different Layers', fontsize=14)
-    plt.xticks(x, layer_names, rotation=45, ha='right')
-    plt.grid(axis='y', linestyle='--', alpha=0.3)
+    # Create bar chart with better styling
+    bars = plt.bar(range(len(layer_names)), recall_values, width=0.6, 
+                  color=colors[:len(layer_names)], 
+                  edgecolor='white', linewidth=1.5)
+    
+    # Add data labels on top of each bar
+    for i, (bar, value) in enumerate(zip(bars, recall_values)):
+        plt.annotate(f'{value:.1f}%', 
+                    xy=(bar.get_x() + bar.get_width() / 2, value),
+                    xytext=(0, 8),
+                    textcoords='offset points',
+                    ha='center', 
+                    va='bottom',
+                    fontsize=12,
+                    fontweight='bold',
+                    bbox=dict(boxstyle='round,pad=0.3', fc='white', ec='gray', alpha=0.7))
+    
+    # Enhanced styling
+    plt.xlabel('Layer Type', fontsize=14, fontweight='bold')
+    plt.ylabel('Recall@1 (%)', fontsize=14, fontweight='bold')
+    plt.title('Performance Across Different Layers', fontsize=16, fontweight='bold')
+    
+    plt.xticks(range(len(layer_names)), layer_names, rotation=30, ha='right', fontsize=12, fontweight='bold')
+    plt.yticks(fontsize=12)
+    
+    # Better grid - only horizontal lines
+    plt.grid(axis='y', linestyle='--', alpha=0.7, color='gray')
+    
+    # Set background color
+    plt.gca().set_facecolor('#f8f9fa')
+    
+    # Add a subtle box around the plot
+    plt.gca().spines['top'].set_visible(True)
+    plt.gca().spines['right'].set_visible(True)
+    plt.gca().spines['bottom'].set_visible(True)
+    plt.gca().spines['left'].set_visible(True)
+    for spine in plt.gca().spines.values():
+        spine.set_color('gray')
+        spine.set_linewidth(1.5)
+    
     plt.tight_layout()
     
     return plt.gcf()

@@ -7097,3 +7097,888 @@ CP Multi-Layer (2 Layers):
 2025-04-20 12:12:39,564 - tensor_defense - INFO - Experiment completed. Results saved to results
 2025-04-20 12:12:39,577 - tensor_defense - INFO - All multi-layer defense hooks removed
 2025-04-20 12:12:39,578 - tensor_defense - INFO - Experiment completed
+2025-04-20 12:35:25,921 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 12:35:25,936 - tensor_defense - INFO - Using device: cuda
+2025-04-20 12:35:25,938 - tensor_defense - INFO - Loading model: clip vit-base-patch32
+2025-04-20 12:35:27,365 - tensor_defense - INFO - Loaded CLIP model: openai/clip-vit-base-patch32
+2025-04-20 12:35:27,365 - tensor_defense - INFO - Loading dataset: nlphuji/flickr30k, split: test, max_samples: 100
+2025-04-20 12:35:29,855 - tensor_defense - INFO - Initialized dataset with 100 samples
+2025-04-20 12:35:29,855 - tensor_defense - INFO - Configuring PGD attack: epsilon=0.0313725, steps=10, step_size=0.0235294
+2025-04-20 12:35:29,855 - root - INFO - Initialized PGD attack with epsilon=0.0313725, alpha=0.0235294, steps=10
+2025-04-20 12:35:29,855 - root - INFO - Random start: True, Targeted: False
+2025-04-20 12:35:29,855 - tensor_defense - INFO - Processing batches...
+2025-04-20 12:35:34,230 - tensor_defense - INFO - Processing batch 1/4
+2025-04-20 12:35:36,119 - tensor_defense - INFO - Saved sample pair 1/5
+2025-04-20 12:35:36,468 - tensor_defense - INFO - Saved sample pair 2/5
+2025-04-20 12:35:36,826 - tensor_defense - INFO - Saved sample pair 3/5
+2025-04-20 12:35:37,180 - tensor_defense - INFO - Saved sample pair 4/5
+2025-04-20 12:35:37,535 - tensor_defense - INFO - Saved sample pair 5/5
+2025-04-20 12:35:37,535 - tensor_defense - INFO - Saved 5 sample image pairs to results\samples
+2025-04-20 12:35:37,619 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:37,619 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:37,619 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:37,809 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:37,810 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:35:37,810 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:35:37,810 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:37,810 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:37,941 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:37,941 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:35:37,941 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:35:37,941 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:37,941 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,071 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,071 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,071 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,071 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:38,072 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,323 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,323 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,323 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,323 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:35:38,323 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,474 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,474 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,474 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,474 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:35:38,474 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,594 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,595 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,595 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,595 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:35:38,595 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,696 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,696 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,696 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,696 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:35:38,696 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,836 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:38,836 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:38,836 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:38,836 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:38,837 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:35:38,837 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:35:38,837 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:38,837 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:35:38,837 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:39,061 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:39,061 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:39,061 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:39,061 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:39,061 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:39,089 - tensor_defense - INFO - Processing batch 2/4
+2025-04-20 12:35:40,218 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:40,218 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:40,218 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:40,218 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:40,360 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,360 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:35:40,360 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:35:40,360 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:40,360 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,485 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,485 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:35:40,485 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:35:40,485 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:40,485 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,587 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,587 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:40,587 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:40,587 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:40,588 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,791 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,792 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:40,792 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:40,792 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:35:40,792 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,907 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:40,908 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:40,908 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:40,908 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:35:40,908 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,022 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,022 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:41,022 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:41,023 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:35:41,023 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,106 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,106 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:41,106 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:41,106 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:35:41,107 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,241 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:41,242 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:35:41,243 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,467 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,467 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,468 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,468 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:41,468 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:41,497 - tensor_defense - INFO - Processing batch 3/4
+2025-04-20 12:35:42,721 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:42,721 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:42,721 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:42,721 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:42,861 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:42,862 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:35:42,862 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:35:42,862 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:42,862 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:42,990 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:42,990 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:35:42,990 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:35:42,990 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:42,990 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,100 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,100 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,100 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,100 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:43,100 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,305 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,306 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,306 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,306 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:35:43,306 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,438 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,438 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,438 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,438 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:35:43,438 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,566 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,567 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,567 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,567 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:35:43,567 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,674 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,674 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,674 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,674 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:35:43,674 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,823 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:43,823 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:43,824 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:35:43,824 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,054 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,054 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,054 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,054 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:44,055 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,075 - tensor_defense - INFO - Processing batch 4/4
+2025-04-20 12:35:44,456 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:44,457 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:44,457 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:44,457 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:44,579 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,579 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:35:44,579 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:35:44,579 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:44,579 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,640 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,641 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:35:44,641 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:35:44,641 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:44,641 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,760 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,761 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:44,761 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:44,761 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:44,761 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,827 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,828 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:44,828 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:44,828 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:35:44,828 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,944 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:44,944 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:44,944 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:44,944 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:35:44,945 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,054 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,054 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:45,054 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:45,054 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:35:45,054 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,163 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,163 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:45,163 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:45,163 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:35:45,163 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,294 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,294 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:35:45,294 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:35:45,294 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:45,294 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:35:45,295 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:35:45,295 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:35:45,295 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:35:45,295 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,515 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,515 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,515 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:45,516 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:45,516 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:35:46,359 - tensor_defense - INFO - 
+Defense Evaluation Results:
+2025-04-20 12:35:46,360 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:35:46,360 - tensor_defense - INFO - 
+clean:
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@1: 0.9375
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@5: 0.7422
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@10: 0.7500
+2025-04-20 12:35:46,360 - tensor_defense - INFO - 
+adversarial:
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@1: 0.2266
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@5: 0.2656
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@10: 0.3672
+2025-04-20 12:35:46,360 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.5):
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@1: 0.2812
+2025-04-20 12:35:46,360 - tensor_defense - INFO -   Recall@5: 0.3047
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:35:46,361 - tensor_defense - INFO - 
+CP Attention (R=64, alpha=0.5):
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@1: 0.2656
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@5: 0.2891
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@10: 0.3672
+2025-04-20 12:35:46,361 - tensor_defense - INFO - 
+CP MLP (R=64, alpha=0.5):
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@1: 0.2578
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@5: 0.3047
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@10: 0.3750
+2025-04-20 12:35:46,361 - tensor_defense - INFO - 
+Tucker Final Norm (R=64, alpha=0.5):
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:35:46,361 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:35:46,361 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.3):
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@1: 0.2812
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@10: 0.4141
+2025-04-20 12:35:46,362 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.7):
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@1: 0.2656
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@5: 0.2891
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:35:46,362 - tensor_defense - INFO - 
+CP Final Norm (R=32, alpha=0.5):
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@1: 0.2891
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@10: 0.3906
+2025-04-20 12:35:46,362 - tensor_defense - INFO - 
+CP Final Norm (R=128, alpha=0.5):
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:35:46,362 - tensor_defense - INFO - 
+CP Multi-Layer (2 Layers):
+2025-04-20 12:35:46,362 - tensor_defense - INFO -   Recall@1: 0.3672
+2025-04-20 12:35:46,363 - tensor_defense - INFO -   Recall@5: 0.3359
+2025-04-20 12:35:46,363 - tensor_defense - INFO -   Recall@10: 0.4297
+2025-04-20 12:35:46,363 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:35:46,474 - tensor_defense - INFO - Experiment completed. Results saved to results
+2025-04-20 12:35:46,486 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:35:46,488 - tensor_defense - INFO - Experiment completed
+2025-04-20 12:47:08,802 - src.utils.visualization - INFO - Enhanced visualization utilities loaded successfully.
+2025-04-20 12:51:44,373 - tensor_defense - INFO - Running experiment with config: config.yaml
+2025-04-20 12:51:44,386 - tensor_defense - INFO - Using device: cuda
+2025-04-20 12:51:44,389 - tensor_defense - INFO - Loading model: clip vit-base-patch32
+2025-04-20 12:51:45,800 - tensor_defense - INFO - Loaded CLIP model: openai/clip-vit-base-patch32
+2025-04-20 12:51:45,801 - tensor_defense - INFO - Loading dataset: nlphuji/flickr30k, split: test, max_samples: 100
+2025-04-20 12:51:47,538 - tensor_defense - INFO - Initialized dataset with 100 samples
+2025-04-20 12:51:47,538 - tensor_defense - INFO - Configuring PGD attack: epsilon=0.0313725, steps=10, step_size=0.0235294
+2025-04-20 12:51:47,538 - root - INFO - Initialized PGD attack with epsilon=0.0313725, alpha=0.0235294, steps=10
+2025-04-20 12:51:47,538 - root - INFO - Random start: True, Targeted: False
+2025-04-20 12:51:47,539 - tensor_defense - INFO - Processing batches...
+2025-04-20 12:51:51,989 - tensor_defense - INFO - Processing batch 1/4
+2025-04-20 12:51:53,943 - tensor_defense - INFO - Saved sample pair 1/5
+2025-04-20 12:51:54,294 - tensor_defense - INFO - Saved sample pair 2/5
+2025-04-20 12:51:54,633 - tensor_defense - INFO - Saved sample pair 3/5
+2025-04-20 12:51:54,984 - tensor_defense - INFO - Saved sample pair 4/5
+2025-04-20 12:51:55,324 - tensor_defense - INFO - Saved sample pair 5/5
+2025-04-20 12:51:55,325 - tensor_defense - INFO - Saved 5 sample image pairs to results\samples
+2025-04-20 12:51:55,464 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:55,464 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:55,464 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:55,659 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:55,659 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:51:55,660 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:51:55,660 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:55,660 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:55,788 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:55,788 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:51:55,788 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:51:55,788 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:55,788 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:55,896 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:55,896 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:55,896 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:55,896 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:55,897 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,108 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,108 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:56,108 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:56,108 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:51:56,108 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,229 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,229 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:56,230 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:56,230 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:51:56,230 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,350 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,351 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:56,351 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:56,351 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:51:56,351 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,447 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,447 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:56,447 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:56,447 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:51:56,447 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,584 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:56,585 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:51:56,585 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,796 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,796 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,796 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,796 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:51:56,796 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:56,834 - tensor_defense - INFO - Processing batch 2/4
+2025-04-20 12:51:57,880 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:57,880 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:57,880 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:57,880 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:51:58,004 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,004 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:51:58,004 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:51:58,004 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:58,004 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,123 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,124 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:51:58,124 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:51:58,124 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:58,124 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,232 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,232 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,232 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,232 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:58,232 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,442 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,442 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,442 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,443 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:51:58,443 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,562 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,562 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,562 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,562 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:51:58,562 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,680 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,681 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,681 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,681 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:51:58,681 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,788 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,788 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,788 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,788 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:51:58,788 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,928 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:58,928 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:51:58,928 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:51:58,928 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:58,928 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:51:58,929 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:51:58,929 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:51:58,929 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:51:58,929 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:59,141 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:59,141 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:59,141 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:59,141 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:51:59,141 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:51:59,159 - tensor_defense - INFO - Processing batch 3/4
+2025-04-20 12:52:00,282 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:00,282 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:00,282 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:00,282 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:52:00,404 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,404 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:52:00,404 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:52:00,405 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:00,405 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,529 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,529 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:52:00,529 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:52:00,529 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:00,530 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,640 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,640 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:00,640 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:00,640 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:00,640 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,847 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,847 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:00,847 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:00,847 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:52:00,847 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,967 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:00,967 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:00,967 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:00,967 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:52:00,967 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,082 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,082 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:01,083 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:01,083 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:52:01,083 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,178 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,179 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:01,179 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:01,179 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:52:01,179 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,317 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:01,317 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:52:01,318 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,532 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,532 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,532 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,533 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:52:01,533 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,555 - tensor_defense - INFO - Processing batch 4/4
+2025-04-20 12:52:01,891 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:01,891 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:01,891 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:01,891 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:52:01,997 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:01,998 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:52:01,998 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:52:01,998 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:01,998 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,048 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,049 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:52:02,049 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:52:02,049 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:02,049 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,153 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,153 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,153 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,153 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:02,153 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,212 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,213 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,213 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,213 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:52:02,213 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,320 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,320 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,321 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,321 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:52:02,321 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,421 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,421 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,421 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,421 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:52:02,421 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,515 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,516 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,516 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,516 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:52:02,516 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,643 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,643 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:52:02,644 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:52:02,644 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,847 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,847 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,848 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:02,848 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:52:02,848 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:52:03,568 - tensor_defense - INFO - 
+Defense Evaluation Results:
+2025-04-20 12:52:03,568 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:52:03,568 - tensor_defense - INFO - 
+clean:
+2025-04-20 12:52:03,568 - tensor_defense - INFO -   Recall@1: 0.9375
+2025-04-20 12:52:03,568 - tensor_defense - INFO -   Recall@5: 0.7422
+2025-04-20 12:52:03,568 - tensor_defense - INFO -   Recall@10: 0.7500
+2025-04-20 12:52:03,569 - tensor_defense - INFO - 
+adversarial:
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@1: 0.2266
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@5: 0.2656
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@10: 0.3672
+2025-04-20 12:52:03,569 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.5):
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@1: 0.2812
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@10: 0.3984
+2025-04-20 12:52:03,569 - tensor_defense - INFO - 
+CP Attention (R=64, alpha=0.5):
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@1: 0.2656
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@5: 0.2891
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@10: 0.3672
+2025-04-20 12:52:03,569 - tensor_defense - INFO - 
+CP MLP (R=64, alpha=0.5):
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@1: 0.2578
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:52:03,569 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:52:03,570 - tensor_defense - INFO - 
+Tucker Final Norm (R=64, alpha=0.5):
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:52:03,570 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.3):
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@1: 0.2969
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@10: 0.4141
+2025-04-20 12:52:03,570 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.7):
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:52:03,570 - tensor_defense - INFO - 
+CP Final Norm (R=32, alpha=0.5):
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@1: 0.2891
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@10: 0.3906
+2025-04-20 12:52:03,570 - tensor_defense - INFO - 
+CP Final Norm (R=128, alpha=0.5):
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:52:03,570 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:52:03,571 - tensor_defense - INFO - 
+CP Multi-Layer (2 Layers):
+2025-04-20 12:52:03,571 - tensor_defense - INFO -   Recall@1: 0.3516
+2025-04-20 12:52:03,571 - tensor_defense - INFO -   Recall@5: 0.3281
+2025-04-20 12:52:03,571 - tensor_defense - INFO -   Recall@10: 0.4297
+2025-04-20 12:52:03,571 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:52:05,204 - tensor_defense - INFO - All paper figures saved to results\figures
+2025-04-20 12:52:05,204 - tensor_defense - INFO - All visualization plots saved to results\figures
+2025-04-20 12:52:05,204 - tensor_defense - INFO - Experiment completed. Results saved to results
+2025-04-20 12:52:05,216 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:52:05,217 - tensor_defense - INFO - Experiment completed
+2025-04-20 12:56:26,865 - tensor_defense - INFO - Running experiment: config
+2025-04-20 12:56:26,865 - tensor_defense - INFO - Results will be saved to: results\config
+2025-04-20 12:56:26,876 - tensor_defense - INFO - Using device: cuda
+2025-04-20 12:56:26,879 - tensor_defense - INFO - Loading model: clip vit-base-patch32
+2025-04-20 12:56:28,277 - tensor_defense - INFO - Loaded CLIP model: openai/clip-vit-base-patch32
+2025-04-20 12:56:28,277 - tensor_defense - INFO - Loading dataset: nlphuji/flickr30k, split: test, max_samples: 100
+2025-04-20 12:56:29,912 - tensor_defense - INFO - Initialized dataset with 100 samples
+2025-04-20 12:56:29,913 - tensor_defense - INFO - Configuring PGD attack: epsilon=0.0313725, steps=10, step_size=0.0235294
+2025-04-20 12:56:29,913 - root - INFO - Initialized PGD attack with epsilon=0.0313725, alpha=0.0235294, steps=10
+2025-04-20 12:56:29,913 - root - INFO - Random start: True, Targeted: False
+2025-04-20 12:56:29,913 - tensor_defense - INFO - Processing batches...
+2025-04-20 12:56:34,416 - tensor_defense - INFO - Processing batch 1/4
+2025-04-20 12:56:36,200 - tensor_defense - INFO - Saved sample pair 1/5
+2025-04-20 12:56:36,539 - tensor_defense - INFO - Saved sample pair 2/5
+2025-04-20 12:56:36,876 - tensor_defense - INFO - Saved sample pair 3/5
+2025-04-20 12:56:37,223 - tensor_defense - INFO - Saved sample pair 4/5
+2025-04-20 12:56:37,573 - tensor_defense - INFO - Saved sample pair 5/5
+2025-04-20 12:56:37,573 - tensor_defense - INFO - Saved 5 sample image pairs to results\config\samples
+2025-04-20 12:56:37,646 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:37,647 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:37,647 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:37,815 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:37,816 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:56:37,816 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:56:37,816 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:37,816 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:37,952 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:37,953 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:56:37,953 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:56:37,953 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:37,953 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,065 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,066 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,066 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,066 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:38,066 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,276 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,276 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,276 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,276 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:56:38,277 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,403 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,404 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,404 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,404 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:56:38,404 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,529 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,529 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,529 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,529 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:56:38,530 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,626 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,626 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,626 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,627 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:56:38,627 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,767 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,767 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:38,767 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:38,767 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:38,767 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:56:38,767 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:56:38,768 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:38,768 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:56:38,768 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,981 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,981 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,981 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,982 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:38,982 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:38,998 - tensor_defense - INFO - Processing batch 2/4
+2025-04-20 12:56:40,106 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:40,106 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:40,106 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:40,106 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:40,236 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,237 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:56:40,237 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:56:40,237 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:40,237 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,377 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,377 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:56:40,377 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:56:40,377 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:40,377 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,489 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,489 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:40,489 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:40,489 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:40,489 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,690 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,691 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:40,691 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:40,691 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:56:40,691 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,810 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,810 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:40,810 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:40,810 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:56:40,810 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,921 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:40,921 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:40,921 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:40,922 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:56:40,922 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,042 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,042 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:41,042 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:41,042 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:56:41,042 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,183 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,183 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:41,183 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:41,184 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:41,184 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:56:41,184 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:56:41,184 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:41,184 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:56:41,184 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,399 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,399 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,399 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,400 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:41,400 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:41,417 - tensor_defense - INFO - Processing batch 3/4
+2025-04-20 12:56:42,619 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:42,620 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:42,620 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:42,620 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:42,757 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:42,758 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:56:42,758 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:56:42,758 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:42,758 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:42,881 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:42,882 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:56:42,882 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:56:42,882 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:42,882 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,036 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,036 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,036 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,036 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:43,036 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,240 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,240 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,240 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,240 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:56:43,240 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,361 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,361 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,361 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,362 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:56:43,362 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,489 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,490 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,490 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,490 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:56:43,490 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,581 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,581 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,581 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,581 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:56:43,581 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,729 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,729 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:43,729 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:43,729 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:43,730 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:56:43,730 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:56:43,730 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:43,730 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:56:43,730 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,942 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,943 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,943 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,943 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:43,943 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:43,962 - tensor_defense - INFO - Processing batch 4/4
+2025-04-20 12:56:44,301 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,301 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,301 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:44,301 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:44,407 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,407 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 attention output
+2025-04-20 12:56:44,407 - tensor_defense - INFO - Initialized cp tensor defense on attention (vision layer -1)
+2025-04-20 12:56:44,407 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:44,407 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,466 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,466 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 MLP output
+2025-04-20 12:56:44,466 - tensor_defense - INFO - Initialized cp tensor defense on mlp (vision layer -1)
+2025-04-20 12:56:44,466 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:44,466 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,572 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,572 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,572 - tensor_defense - INFO - Initialized tucker tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,572 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:44,572 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,628 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,629 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,629 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,629 - tensor_defense - INFO - Rank: 64, Alpha: 0.3
+2025-04-20 12:56:44,629 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,725 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,725 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,725 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,726 - tensor_defense - INFO - Rank: 64, Alpha: 0.7
+2025-04-20 12:56:44,726 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,834 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,834 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,835 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,835 - tensor_defense - INFO - Rank: 32, Alpha: 0.5
+2025-04-20 12:56:44,835 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,935 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:44,936 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:44,936 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:44,936 - tensor_defense - INFO - Rank: 128, Alpha: 0.5
+2025-04-20 12:56:44,936 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,055 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 11 final norm
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -1)
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Registered hook on CLIP vision encoder layer 10 final norm
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Initialized cp tensor defense on final_norm (vision layer -2)
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Rank: 64, Alpha: 0.5
+2025-04-20 12:56:45,055 - tensor_defense - INFO - Initialized multi-layer defense with 2 layers
+2025-04-20 12:56:45,055 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,249 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,249 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,250 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,250 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:45,250 - tensor_defense - INFO - All hooks removed
+2025-04-20 12:56:45,968 - tensor_defense - INFO - 
+Defense Evaluation Results:
+2025-04-20 12:56:45,968 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:56:45,968 - tensor_defense - INFO - 
+clean:
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@1: 0.9375
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@5: 0.7422
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@10: 0.7500
+2025-04-20 12:56:45,969 - tensor_defense - INFO - 
+adversarial:
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@1: 0.2266
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@5: 0.2656
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@10: 0.3672
+2025-04-20 12:56:45,969 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.5):
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@1: 0.2812
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@10: 0.3906
+2025-04-20 12:56:45,969 - tensor_defense - INFO - 
+CP Attention (R=64, alpha=0.5):
+2025-04-20 12:56:45,969 - tensor_defense - INFO -   Recall@1: 0.2656
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@5: 0.2891
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@10: 0.3750
+2025-04-20 12:56:45,970 - tensor_defense - INFO - 
+CP MLP (R=64, alpha=0.5):
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@1: 0.2500
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@5: 0.2891
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:56:45,970 - tensor_defense - INFO - 
+Tucker Final Norm (R=64, alpha=0.5):
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:56:45,970 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.3):
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@1: 0.2969
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@5: 0.3047
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@10: 0.4141
+2025-04-20 12:56:45,970 - tensor_defense - INFO - 
+CP Final Norm (R=64, alpha=0.7):
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@5: 0.2969
+2025-04-20 12:56:45,970 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:56:45,971 - tensor_defense - INFO - 
+CP Final Norm (R=32, alpha=0.5):
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@1: 0.2891
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@10: 0.4062
+2025-04-20 12:56:45,971 - tensor_defense - INFO - 
+CP Final Norm (R=128, alpha=0.5):
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@1: 0.2734
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@5: 0.3125
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@10: 0.3828
+2025-04-20 12:56:45,971 - tensor_defense - INFO - 
+CP Multi-Layer (2 Layers):
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@1: 0.3594
+2025-04-20 12:56:45,971 - tensor_defense - INFO -   Recall@5: 0.3438
+2025-04-20 12:56:45,972 - tensor_defense - INFO -   Recall@10: 0.4453
+2025-04-20 12:56:45,972 - tensor_defense - INFO - --------------------------------------------------
+2025-04-20 12:56:47,704 - tensor_defense - INFO - All paper figures saved to results\config\figures\figures
+2025-04-20 12:56:47,704 - tensor_defense - INFO - All visualization plots saved to results\config\figures\figures
+2025-04-20 12:56:47,714 - tensor_defense - INFO - Experiment config completed. Results saved to results\config
+2025-04-20 12:56:47,727 - tensor_defense - INFO - All multi-layer defense hooks removed
+2025-04-20 12:56:47,728 - tensor_defense - INFO - Experiment completed. Results available in results\config

@@ -5,6 +5,7 @@ Main entry point for tensor decomposition defense experiments
 import os
 import argparse
 import logging
+import yaml
 from src.experiment import run_experiment
 
 # Configure root logger
@@ -37,9 +38,10 @@ def create_directory_structure():
     logger.info("Directory structure created")
 
 def main():
-    """Main entry point"""
-    parser = argparse.ArgumentParser(description='Tensor Decomposition Defense for VLMs')
-    parser.add_argument('--config', type=str, default='config.yaml', help='Path to experiment configuration file')
+    parser = argparse.ArgumentParser(description="Run tensor decomposition defense experiment")
+    parser.add_argument('--config', type=str, required=True, help='Path to configuration file')
+    parser.add_argument('--experiment_name', type=str, default=None, 
+                      help='Custom experiment name (defaults to config filename)')
     parser.add_argument('--create-dirs', action='store_true', help='Create directory structure')
     
     args = parser.parse_args()
@@ -47,16 +49,33 @@ def main():
     if args.create_dirs:
         create_directory_structure()
     
-    # Run experiment with the specified configuration
+    # For each experiment config, create a separate folder
     config_path = args.config
-    if not os.path.exists(config_path):
-        logger.error(f"Configuration file not found: {config_path}")
-        return
+    experiment_name = args.experiment_name
     
-    logger.info(f"Running experiment with config: {config_path}")
-    run_experiment(config_path)
+    if experiment_name:
+        # Read config
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+        
+        # Override results directory with experiment name
+        config['results_dir'] = os.path.join(config.get('results_dir', 'results'), experiment_name)
+        
+        # Create a temporary config with the experiment name
+        temp_config_path = f"temp_{os.path.basename(config_path)}"
+        with open(temp_config_path, 'w') as f:
+            yaml.dump(config, f)
+        
+        # Run with temp config
+        results_dir, results = run_experiment(temp_config_path)
+        
+        # Clean up temp file
+        os.remove(temp_config_path)
+    else:
+        # Just use the config filename as experiment name
+        results_dir, results = run_experiment(config_path)
     
-    logger.info("Experiment completed")
+    logger.info(f"Experiment completed. Results available in {results_dir}")
 
 if __name__ == "__main__":
     main()

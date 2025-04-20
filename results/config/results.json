@@ -1,0 +1,57 @@
+{
+  "clean": {
+    "recall@1": 0.9375,
+    "recall@5": 0.7421875,
+    "recall@10": 0.75
+  },
+  "adversarial": {
+    "recall@1": 0.2265625,
+    "recall@5": 0.265625,
+    "recall@10": 0.3671875
+  },
+  "CP Final Norm (R=64, alpha=0.5)": {
+    "recall@1": 0.28125,
+    "recall@5": 0.3125,
+    "recall@10": 0.390625
+  },
+  "CP Attention (R=64, alpha=0.5)": {
+    "recall@1": 0.265625,
+    "recall@5": 0.2890625,
+    "recall@10": 0.375
+  },
+  "CP MLP (R=64, alpha=0.5)": {
+    "recall@1": 0.25,
+    "recall@5": 0.2890625,
+    "recall@10": 0.3828125
+  },
+  "Tucker Final Norm (R=64, alpha=0.5)": {
+    "recall@1": 0.2734375,
+    "recall@5": 0.296875,
+    "recall@10": 0.3828125
+  },
+  "CP Final Norm (R=64, alpha=0.3)": {
+    "recall@1": 0.296875,
+    "recall@5": 0.3046875,
+    "recall@10": 0.4140625
+  },
+  "CP Final Norm (R=64, alpha=0.7)": {
+    "recall@1": 0.2734375,
+    "recall@5": 0.296875,
+    "recall@10": 0.3828125
+  },
+  "CP Final Norm (R=32, alpha=0.5)": {
+    "recall@1": 0.2890625,
+    "recall@5": 0.3125,
+    "recall@10": 0.40625
+  },
+  "CP Final Norm (R=128, alpha=0.5)": {
+    "recall@1": 0.2734375,
+    "recall@5": 0.3125,
+    "recall@10": 0.3828125
+  },
+  "CP Multi-Layer (2 Layers)": {
+    "recall@1": 0.359375,
+    "recall@5": 0.34375,
+    "recall@10": 0.4453125
+  }
+}
