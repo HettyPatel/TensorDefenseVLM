@@ -52,22 +52,22 @@ def calculate_metrics(clean_similarity, adv_no_defense, adv_with_defense):
         if batch_size >= k:
             # Clean performance
             clean_recall = calculate_recall_at_k(clean_similarity, targets, k)
-            metrics[f'clean_recall_at_{k}'] = clean_recall
+            metrics[f'clean_recall@{k}'] = clean_recall
             
             # Attacked performance (no defense)
             no_defense_recall = calculate_recall_at_k(adv_no_defense, targets, k)
-            metrics[f'no_defense_recall_at_{k}'] = no_defense_recall
+            metrics[f'adversarial_recall@{k}'] = no_defense_recall
             
             # Defended performance
             defended_recall = calculate_recall_at_k(adv_with_defense, targets, k)
-            metrics[f'defended_recall_at_{k}'] = defended_recall
+            metrics[f'defended_recall@{k}'] = defended_recall
             
             # Calculate improvements
             abs_improvement = defended_recall - no_defense_recall
-            metrics[f'abs_improvement_at_{k}'] = abs_improvement
+            metrics[f'abs_improvement@{k}'] = abs_improvement
             
             rel_improvement = (abs_improvement / no_defense_recall * 100) if no_defense_recall > 0 else 0
-            metrics[f'rel_improvement_at_{k}'] = rel_improvement
+            metrics[f'rel_improvement@{k}'] = rel_improvement
             
             # Calculate recovery percentage
             attack_drop = clean_recall - no_defense_recall
@@ -75,33 +75,29 @@ def calculate_metrics(clean_similarity, adv_no_defense, adv_with_defense):
             
             if attack_drop > 0:
                 recovery = (attack_drop - defense_drop) / attack_drop * 100
-                metrics[f'recovery_percent_at_{k}'] = recovery
+                metrics[f'recovery_percent@{k}'] = recovery
             else:
-                metrics[f'recovery_percent_at_{k}'] = 0
+                metrics[f'recovery_percent@{k}'] = 0
     
     return metrics
 
 
-def print_metrics_summary(metrics, defense_name="Defense"):
+def print_metrics_summary(results):
     """
-    Print a summary of evaluation metrics
+    Print a summary of the evaluation metrics
     
     Args:
-        metrics: Dictionary of metrics
-        defense_name: Name of the defense for printing
+        results: Dictionary containing metrics for each defense
     """
-    logger.info(f"\n{defense_name} Evaluation Results:")
-    for k in [1, 5, 10]:
-        if f'clean_recall_at_{k}' in metrics:
-            clean_recall = metrics[f'clean_recall_at_{k}']
-            adv_recall = metrics[f'no_defense_recall_at_{k}']
-            defended_recall = metrics[f'defended_recall_at_{k}']
-            improvement_percent = metrics.get(f'rel_improvement_at_{k}', 0)
-            recovery_percent = metrics.get(f'recovery_percent_at_{k}', 0)
-            
-            logger.info(f"  Recall@{k}:")
-            logger.info(f"    Clean: {clean_recall:.4f}")
-            logger.info(f"    Adversarial (No Defense): {adv_recall:.4f}")
-            logger.info(f"    Adversarial (With {defense_name}): {defended_recall:.4f}")
-            logger.info(f"    Improvement: {improvement_percent:.2f}%")
-            logger.info(f"    Performance Recovery: {recovery_percent:.2f}% of the adversarial drop")
+    logger = logging.getLogger("tensor_defense")
+    
+    logger.info("\nDefense Evaluation Results:")
+    logger.info("-" * 50)
+    
+    for defense_name, metrics in results.items():
+        logger.info(f"\n{defense_name}:")
+        logger.info(f"  Recall@1: {metrics['recall@1']:.4f}")
+        logger.info(f"  Recall@5: {metrics['recall@5']:.4f}")
+        logger.info(f"  Recall@10: {metrics['recall@10']:.4f}")
+    
+    logger.info("-" * 50)

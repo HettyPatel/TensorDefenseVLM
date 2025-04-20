@@ -16,7 +16,7 @@ from src.attacks.pgd import PGDAttack
 from src.defenses.tensor_defense import TargetedTensorDefense
 from src.defenses.multi_layer import MultiLayerTensorDefense
 from src.utils.metrics import calculate_metrics, print_metrics_summary
-from src.utils.visualization import save_sample_images, create_comparison_plot
+from src.utils.visualization import save_sample_images, create_recall_comparison_plot, create_all_paper_plots
 
 # Configure logging
 logging.basicConfig(
@@ -287,10 +287,15 @@ def run_experiment(config_path):
         # Accumulate results
         for key in all_results:
             for k in [1, 5, 10]:
-                metric = f'recall@{k}'
-                metric_key = f'clean_recall_at_{k}'
-                if metric_key in batch_results[key]:
-                    all_results[key][metric] += batch_results[key][metric_key]
+                if key == 'clean':
+                    metric = f'clean_recall@{k}'
+                elif key == 'adversarial':
+                    metric = f'adversarial_recall@{k}'
+                else:
+                    metric = f'defended_recall@{k}'
+                
+                if metric in batch_results[key]:
+                    all_results[key][f'recall@{k}'] += batch_results[key][metric]
         
         # Clear GPU memory
         del adv_images, orig_images, inputs
@@ -305,7 +310,7 @@ def run_experiment(config_path):
     print_metrics_summary(all_results)
     
     # Create and save comparison plot
-    comparison_plot = create_comparison_plot(all_results)
+    comparison_plot = create_recall_comparison_plot(all_results)
     comparison_plot.savefig(os.path.join(results_dir, 'defense_comparison.png'))
     
     logger.info(f"Experiment completed. Results saved to {results_dir}")

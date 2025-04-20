@@ -3,8 +3,8 @@
 # General settings
 seed: 42
 results_dir: "results"
-batch_size: 8
-num_workers: 1
+batch_size: 32
+num_workers: 4
 
 # Model configuration
 model:
@@ -15,7 +15,7 @@ model:
 dataset:
   name: "nlphuji/flickr30k" # Dataset from Hugging Face
   split: "test"
-  max_samples: 1000 # Limit number of samples for faster testing
+  max_samples: 100 # Limit number of samples for faster testing
 
 # Attack configuration
 attack:
