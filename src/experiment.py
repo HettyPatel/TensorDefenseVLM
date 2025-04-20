@@ -76,9 +76,11 @@ def run_experiment(config_path):
     hf_dataset = load_dataset(dataset_name)
     dataset = HFDatasetWrapper(hf_dataset, split=split, max_samples=max_samples)
     
-    batch_size = config.get('batch_size', 64)
+    # Use single batch size for all operations
+    batch_size = config.get('batch_size', 32)
     num_workers = config.get('num_workers', 4)
     
+    # Create dataloader
     dataloader = DataLoader(
         dataset, 
         batch_size=batch_size,
@@ -101,178 +103,212 @@ def run_experiment(config_path):
         steps=steps
     )
     
-    # Generate adversarial examples
-    logger.info("Generating adversarial examples")
-    all_results = {}
-    
-    # Process first batch for demonstration
-    all_image_ids = []
-    all_images = []
-    all_captions = []
-
-    for batch in dataloader:
-        all_image_ids.extend(batch['image_id'])
-        all_images.extend(batch['image'])
-        all_captions.extend(batch['caption'])
-        
-    # Use the accumulated data
-    image_ids = all_image_ids
-    images = all_images
-    captions = all_captions
-    
-    # Generate adversarial examples
-    adv_images, inputs, orig_images = attack.perturb(images, captions, device)
-    
-    # Save sample images
-    save_sample_images(
-        orig_images, 
-        adv_images, 
-        captions,
-        max_samples=5,
-        epsilon=epsilon,
-        steps=steps,
-        step_size=step_size,
-        save_dir=os.path.join(results_dir, 'samples')
-    )
-    
-    # Evaluate clean performance
-    with torch.no_grad():
-        # For CLIP-like models
-        if hasattr(model, 'get_image_features') and hasattr(model, 'get_text_features'):
-            clean_image_embeds = model.get_image_features(pixel_values=orig_images)
-            text_embeds = model.get_text_features(
-                input_ids=inputs.input_ids,
-                attention_mask=inputs.attention_mask
-            )
-            
-            # Normalize embeddings
-            clean_image_embeds = clean_image_embeds / clean_image_embeds.norm(dim=-1, keepdim=True)
-            text_embeds = text_embeds / text_embeds.norm(dim=-1, keepdim=True)
-            
-            # Calculate clean similarity scores
-            clean_similarity = torch.matmul(clean_image_embeds, text_embeds.t())
-            
-        else:
-            # For BLIP-like models
-            clean_outputs = model(**inputs)
-            if hasattr(clean_outputs, 'logits_per_image'):
-                clean_similarity = clean_outputs.logits_per_image
-            else:
-                clean_similarity = clean_outputs.similarity_scores
-    
-    # Evaluate adversarial performance (no defense)
-    with torch.no_grad():
-        # For CLIP-like models
-        if hasattr(model, 'get_image_features') and hasattr(model, 'get_text_features'):
-            adv_image_embeds = model.get_image_features(pixel_values=adv_images)
-            
-            # Normalize embeddings
-            adv_image_embeds = adv_image_embeds / adv_image_embeds.norm(dim=-1, keepdim=True)
-            
-            # Calculate adversarial similarity scores
-            adv_similarity = torch.matmul(adv_image_embeds, text_embeds.t())
-            
-        else:
-            # For BLIP-like models
-            adv_inputs = inputs.copy()
-            adv_inputs['pixel_values'] = adv_images
-            
-            adv_outputs = model(**adv_inputs)
-            if hasattr(adv_outputs, 'logits_per_image'):
-                adv_similarity = adv_outputs.logits_per_image
-            else:
-                adv_similarity = adv_outputs.similarity_scores
-    
-    # Store baseline results
-    all_results["No Defense"] = {
-        'clean_similarity': clean_similarity,
-        'adv_similarity': adv_similarity,
-        # Just pass the same matrix twice since there's no defense
-        'metrics': calculate_metrics(clean_similarity, adv_similarity, adv_similarity)
+    # Initialize results storage
+    all_results = {
+        'clean': {'recall@1': 0.0, 'recall@5': 0.0, 'recall@10': 0.0},
+        'adversarial': {'recall@1': 0.0, 'recall@5': 0.0, 'recall@10': 0.0}
     }
     
-    print_metrics_summary(all_results["No Defense"]['metrics'], "No Defense")
+    # Initialize defense results
+    for defense in config['defenses']:
+        all_results[defense['name']] = {'recall@1': 0.0, 'recall@5': 0.0, 'recall@10': 0.0}
     
-    # Test different defense configurations
-    defense_configs = config.get('defenses', [])
+    # Process each batch
+    logger.info("Processing batches...")
+    total_batches = len(dataloader)
     
-    for defense_config in defense_configs:
-        defense_name = defense_config['name']
-        method = defense_config.get('method', 'cp')
-        rank = defense_config.get('rank', 64)
-        alpha = defense_config.get('alpha', 0.5)
-        target_layer = defense_config.get('target_layer', 'final_norm')
-        vision_layer_idx = defense_config.get('vision_layer_idx', -1)
+    for batch_idx, batch in enumerate(dataloader):
+        logger.info(f"Processing batch {batch_idx + 1}/{total_batches}")
         
-        logger.info(f"Evaluating defense: {defense_name}")
+        images = batch['image']
+        captions = batch['caption']
         
-        # Apply defense
-        if isinstance(defense_config.get('layers', None), list):
-            # Multi-layer defense
-            defense = MultiLayerTensorDefense(model, defense_config['layers'])
-        else:
-            # Single-layer defense
-            defense = TargetedTensorDefense(
-                model=model,
-                method=method,
-                rank=rank,
-                alpha=alpha,
-                target_layer=target_layer,
-                vision_layer_idx=vision_layer_idx
+        # Generate adversarial examples
+        adv_images, inputs, orig_images = attack.perturb(images, captions, device)
+        
+        # Save sample images from first batch
+        if batch_idx == 0:
+            save_sample_images(
+                orig_images, 
+                adv_images, 
+                captions,
+                max_samples=5,
+                epsilon=epsilon,
+                steps=steps,
+                step_size=step_size,
+                save_dir=os.path.join(results_dir, 'samples')
             )
         
-        # Evaluate with defense
+        # Calculate similarity matrices
         with torch.no_grad():
             # For CLIP-like models
             if hasattr(model, 'get_image_features') and hasattr(model, 'get_text_features'):
-                defended_image_embeds = model.get_image_features(pixel_values=adv_images)
+                # Get text features
+                inputs = processor(
+                    text=captions,
+                    return_tensors="pt",
+                    padding=True,
+                    truncation=True
+                ).to(device)
                 
-                # Normalize embeddings
-                defended_image_embeds = defended_image_embeds / defended_image_embeds.norm(dim=-1, keepdim=True)
+                text_features = model.get_text_features(
+                    input_ids=inputs.input_ids,
+                    attention_mask=inputs.attention_mask
+                )
+                text_features = text_features / text_features.norm(dim=-1, keepdim=True)
                 
-                # Calculate defended similarity scores
-                defended_similarity = torch.matmul(defended_image_embeds, text_embeds.t())
+                # Get clean image features
+                clean_image_features = model.get_image_features(pixel_values=orig_images)
+                clean_image_features = clean_image_features / clean_image_features.norm(dim=-1, keepdim=True)
                 
+                # Get adversarial image features (no defense)
+                adv_image_features = model.get_image_features(pixel_values=adv_images)
+                adv_image_features = adv_image_features / adv_image_features.norm(dim=-1, keepdim=True)
+                
+                # Calculate similarity matrices
+                clean_similarity = torch.matmul(clean_image_features, text_features.t())
+                adv_no_defense_similarity = torch.matmul(adv_image_features, text_features.t())
+                
+                # Calculate metrics for each defense
+                batch_results = {}
+                batch_results['clean'] = calculate_metrics(
+                    clean_similarity, clean_similarity, clean_similarity
+                )
+                batch_results['adversarial'] = calculate_metrics(
+                    clean_similarity, adv_no_defense_similarity, adv_no_defense_similarity
+                )
+                
+                for defense in config['defenses']:
+                    defense_name = defense['name']
+                    method = defense.get('method', 'cp')
+                    rank = defense.get('rank', 64)
+                    alpha = defense.get('alpha', 0.5)
+                    target_layer = defense.get('target_layer', 'final_norm')
+                    vision_layer_idx = defense.get('vision_layer_idx', -1)
+                    
+                    # Apply defense
+                    if isinstance(defense.get('layers', None), list):
+                        defense_model = MultiLayerTensorDefense(model, defense['layers'])
+                    else:
+                        defense_model = TargetedTensorDefense(
+                            model=model,
+                            method=method,
+                            rank=rank,
+                            alpha=alpha,
+                            target_layer=target_layer,
+                            vision_layer_idx=vision_layer_idx
+                        )
+                    
+                    # Get defended image features
+                    defended_image_features = model.get_image_features(pixel_values=adv_images)
+                    defended_image_features = defended_image_features / defended_image_features.norm(dim=-1, keepdim=True)
+                    
+                    # Calculate defended similarity
+                    defended_similarity = torch.matmul(defended_image_features, text_features.t())
+                    
+                    # Calculate metrics
+                    batch_results[defense_name] = calculate_metrics(
+                        clean_similarity, adv_no_defense_similarity, defended_similarity
+                    )
+                    
+                    # Remove hooks
+                    defense_model.remove_hooks()
+            
             else:
                 # For BLIP-like models
-                defended_outputs = model(**adv_inputs)
-                if hasattr(defended_outputs, 'logits_per_image'):
-                    defended_similarity = defended_outputs.logits_per_image
+                inputs = processor(
+                    text=captions,
+                    images=orig_images,
+                    return_tensors="pt",
+                    padding=True,
+                    truncation=True
+                ).to(device)
+                
+                clean_outputs = model(**inputs)
+                if hasattr(clean_outputs, 'logits_per_image'):
+                    clean_similarity = clean_outputs.logits_per_image
                 else:
-                    defended_similarity = defended_outputs.similarity_scores
+                    clean_similarity = clean_outputs.similarity_scores
+                
+                # Get adversarial outputs
+                adv_inputs = inputs.copy()
+                adv_inputs['pixel_values'] = adv_images
+                adv_outputs = model(**adv_inputs)
+                if hasattr(adv_outputs, 'logits_per_image'):
+                    adv_no_defense_similarity = adv_outputs.logits_per_image
+                else:
+                    adv_no_defense_similarity = adv_outputs.similarity_scores
+                
+                # Calculate metrics for each defense
+                batch_results = {}
+                batch_results['clean'] = calculate_metrics(
+                    clean_similarity, clean_similarity, clean_similarity
+                )
+                batch_results['adversarial'] = calculate_metrics(
+                    clean_similarity, adv_no_defense_similarity, adv_no_defense_similarity
+                )
+                
+                for defense in config['defenses']:
+                    defense_name = defense['name']
+                    method = defense.get('method', 'cp')
+                    rank = defense.get('rank', 64)
+                    alpha = defense.get('alpha', 0.5)
+                    target_layer = defense.get('target_layer', 'final_norm')
+                    vision_layer_idx = defense.get('vision_layer_idx', -1)
+                    
+                    # Apply defense
+                    if isinstance(defense.get('layers', None), list):
+                        defense_model = MultiLayerTensorDefense(model, defense['layers'])
+                    else:
+                        defense_model = TargetedTensorDefense(
+                            model=model,
+                            method=method,
+                            rank=rank,
+                            alpha=alpha,
+                            target_layer=target_layer,
+                            vision_layer_idx=vision_layer_idx
+                        )
+                    
+                    # Get defended outputs
+                    defended_outputs = model(**adv_inputs)
+                    if hasattr(defended_outputs, 'logits_per_image'):
+                        defended_similarity = defended_outputs.logits_per_image
+                    else:
+                        defended_similarity = defended_outputs.similarity_scores
+                    
+                    # Calculate metrics
+                    batch_results[defense_name] = calculate_metrics(
+                        clean_similarity, adv_no_defense_similarity, defended_similarity
+                    )
+                    
+                    # Remove hooks
+                    defense_model.remove_hooks()
         
-        # Calculate metrics
-        metrics = calculate_metrics(clean_similarity, adv_similarity, defended_similarity)
+        # Accumulate results
+        for key in all_results:
+            for k in [1, 5, 10]:
+                metric = f'recall@{k}'
+                metric_key = f'clean_recall_at_{k}'
+                if metric_key in batch_results[key]:
+                    all_results[key][metric] += batch_results[key][metric_key]
         
-        # Store results
-        all_results[defense_name] = {
-            'clean_similarity': clean_similarity,
-            'adv_similarity': adv_similarity,
-            'defended_similarity': defended_similarity,
-            'metrics': metrics
-        }
-        
-        print_metrics_summary(metrics, defense_name)
-        
-        # Remove hooks
-        defense.remove_hooks()
+        # Clear GPU memory
+        del adv_images, orig_images, inputs
+        torch.cuda.empty_cache()
     
-    # Create comparison plot
-    create_comparison_plot(
-        {name: results['metrics'] for name, results in all_results.items()},
-        k=1,
-        save_path=os.path.join(results_dir, 'defense_comparison_r1.png')
-    )
+    # Average results over all batches
+    for key in all_results:
+        for metric in ['recall@1', 'recall@5', 'recall@10']:
+            all_results[key][metric] /= total_batches
     
-    create_comparison_plot(
-        {name: results['metrics'] for name, results in all_results.items()},
-        k=5,
-        save_path=os.path.join(results_dir, 'defense_comparison_r5.png')
-    )
+    # Print final metrics
+    print_metrics_summary(all_results)
+    
+    # Create and save comparison plot
+    comparison_plot = create_comparison_plot(all_results)
+    comparison_plot.savefig(os.path.join(results_dir, 'defense_comparison.png'))
     
     logger.info(f"Experiment completed. Results saved to {results_dir}")
-    
-    return all_results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run tensor decomposition defense experiment')
