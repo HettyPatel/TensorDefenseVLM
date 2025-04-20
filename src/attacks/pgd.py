@@ -1,8 +1,5 @@
 """
-Projected Gradient Descent (PGD) attack for Vision-Language Models.
-
-This module implements PGD attacks against CLIP and LLaVA models
-by minimizing the cosine similarity between image and text embeddings.
+Projected Gradient Descent (PGD) attack for Vision-Language Models
 """
 
 import torch
@@ -23,7 +20,7 @@ class PGDAttack:
         Initialize a PGD attack for VLMs
         
         Args:
-            model: VLM model to attack (CLIP or LLaVA)
+            model: VLM model to attack
             processor: Model processor for preprocessing
             epsilon: Maximum perturbation magnitude (L-infinity norm)
             alpha: Step size for each iteration
@@ -53,59 +50,28 @@ class PGDAttack:
             target_captions: Target captions for targeted attack (optional)
             
         Returns:
-            Tuple containing:
-            - Tensor of adversarial examples
-            - Processed inputs
-            - Original pixel values
+            Tensor of adversarial examples, inputs tensor, original pixel values
         """
-        # Determine model type to handle different model architectures
-        is_clip = hasattr(self.model, 'get_image_features')
-        is_llava = hasattr(self.model, 'vision_tower')
-        
         # Convert PIL images to tensors using the processor
-        if is_clip:
-            inputs = self.processor(
-                text=captions,
-                images=images,
+        inputs = self.processor(
+            text=captions,
+            images=images,
+            return_tensors="pt",
+            padding=True,
+            truncation=True
+        ).to(device)
+        
+        # Prepare target captions for targeted attack if specified
+        if self.targeted and target_captions is not None:
+            target_inputs = self.processor(
+                text=target_captions,
                 return_tensors="pt",
                 padding=True,
                 truncation=True
             ).to(device)
-            
-            # Prepare target captions for targeted attack if specified
-            if self.targeted and target_captions is not None:
-                target_inputs = self.processor(
-                    text=target_captions,
-                    return_tensors="pt",
-                    padding=True,
-                    truncation=True
-                ).to(device)
-        elif is_llava:
-            # LLaVA processors work differently, typically separate processors for image and text
-            if hasattr(self.processor, 'image_processor'):
-                # If processor has separate image and text processors
-                vision_inputs = self.processor.image_processor(images, return_tensors="pt").to(device)
-                text_inputs = self.processor.tokenizer(captions, return_tensors="pt", padding=True, truncation=True).to(device)
-                inputs = {**vision_inputs, **text_inputs}
-            else:
-                # Fallback for other processor types
-                inputs = self.processor(images, captions, return_tensors="pt", padding=True, truncation=True).to(device)
-                
-            # Handle targeted attack for LLaVA
-            if self.targeted and target_captions is not None:
-                if hasattr(self.processor, 'tokenizer'):
-                    target_inputs = self.processor.tokenizer(
-                        target_captions, return_tensors="pt", padding=True, truncation=True
-                    ).to(device)
-                else:
-                    target_inputs = self.processor(
-                        None, target_captions, return_tensors="pt", padding=True, truncation=True
-                    ).to(device)
-        else:
-            raise ValueError(f"Unsupported model type: {type(self.model)}")
         
         # Get the pixel values tensor (original images)
-        pixel_values = inputs['pixel_values'].clone().detach() if 'pixel_values' in inputs else inputs['images'].clone().detach()
+        pixel_values = inputs.pixel_values.clone().detach()
         
         # Set model to evaluation mode
         self.model.eval()
@@ -115,19 +81,21 @@ class PGDAttack:
         
         # Random initialization for PGD (if enabled)
         if self.random_start and self.steps > 1:
+            # Use fixed seed for deterministic results
+            torch.manual_seed(42)
             # Add small random noise to start
             adv_images = adv_images + torch.empty_like(adv_images).uniform_(-self.epsilon/2, self.epsilon/2)
             adv_images = torch.clamp(adv_images, 0, 1)
         
         # Perform multi-step attack
         for step in range(self.steps):
-            # Create a fresh copy that requires gradients
+            # Important: create a fresh copy that requires gradients
             adv_images = adv_images.clone().detach().requires_grad_(True)
             
-            # Forward pass with gradient computation enabled
+            # Forward pass - with gradient computation enabled
             with torch.enable_grad():
-                # CLIP-specific attack logic
-                if is_clip:
+                # For CLIP-like models with get_image_features method
+                if hasattr(self.model, 'get_image_features'):
                     # Get image features
                     image_features = self.model.get_image_features(pixel_values=adv_images)
                     
@@ -171,44 +139,39 @@ class PGDAttack:
                     else:
                         # For untargeted attack, minimize similarity to original captions
                         loss = -matched_similarities.sum()
-                
-                # LLaVA-specific attack logic
-                elif is_llava:
-                    # Update inputs with adversarial images
-                    adv_inputs = inputs.copy()
-                    if 'pixel_values' in adv_inputs:
-                        adv_inputs['pixel_values'] = adv_images
-                    else:
-                        adv_inputs['images'] = adv_images
                     
-                    # Forward pass through LLaVA
+                else:
+                    # For BLIP-like models
+                    adv_inputs = inputs.copy()
+                    adv_inputs['pixel_values'] = adv_images
+                    
                     outputs = self.model(**adv_inputs)
                     
-                    # For LLaVA, we need to extract image and text embeddings differently
-                    # The specific approach depends on the LLaVA implementation
-                    if hasattr(outputs, 'image_embeds') and hasattr(outputs, 'text_embeds'):
-                        # If embeddings are directly available
-                        image_embeds = outputs.image_embeds
-                        text_embeds = outputs.text_embeds
+                    if self.targeted and target_captions is not None:
+                        target_outputs = self.model(
+                            input_ids=target_inputs.input_ids,
+                            attention_mask=target_inputs.attention_mask,
+                            pixel_values=adv_images
+                        )
+                    
+                    # For untargeted attack, minimize similarity score
+                    if hasattr(outputs, 'logits_per_image'):
+                        # Get the diagonal elements (matched pairs)
+                        batch_size = outputs.logits_per_image.size(0)
+                        targets = torch.arange(batch_size).to(device)
+                        matched_similarities = outputs.logits_per_image[torch.arange(batch_size), targets]
                         
-                        # Normalize embeddings
-                        image_embeds = image_embeds / image_embeds.norm(dim=-1, keepdim=True)
-                        text_embeds = text_embeds / text_embeds.norm(dim=-1, keepdim=True)
-                        
-                        # Compute similarity
-                        similarity = torch.sum(image_embeds * text_embeds, dim=-1)
-                        
-                        # Loss is negative similarity (we want to minimize similarity)
-                        loss = -similarity.sum()
-                    else:
-                        # Fallback to using model logits or hidden states
-                        # This depends on the specific LLaVA architecture
-                        if hasattr(outputs, 'logits'):
-                            # Use model logits as a proxy for alignment
-                            loss = -outputs.logits.mean()
+                        if self.targeted and target_captions is not None:
+                            target_similarities = target_outputs.logits_per_image[torch.arange(batch_size), targets]
+                            loss = -target_similarities.sum() + matched_similarities.sum()
                         else:
-                            # Use the last hidden states as a proxy
-                            loss = -outputs.last_hidden_state.mean()
+                            loss = -matched_similarities.sum()
+                    else:
+                        # Fallback for other model types
+                        loss = -outputs.similarity_scores.mean()
+            
+            # Zero all existing gradients
+            self.model.zero_grad()
             
             # Compute gradients
             loss.backward()
@@ -221,7 +184,7 @@ class PGDAttack:
             # Update adversarial images
             with torch.no_grad():
                 # Take a step in the gradient direction
-                adv_images = adv_images.detach() + self.alpha * adv_images.grad.sign()
+                adv_images = adv_images.detach() - self.alpha * adv_images.grad.sign()
                 
                 # Project back to epsilon ball around original images
                 delta = torch.clamp(adv_images - pixel_values, min=-self.epsilon, max=self.epsilon)

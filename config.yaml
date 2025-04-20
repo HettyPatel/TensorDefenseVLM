@@ -1,0 +1,95 @@
+# Configuration for tensor decomposition defense experiment
+
+# General settings
+seed: 42
+results_dir: "results"
+batch_size: 64
+num_workers: 4
+
+# Model configuration
+model:
+  name: "clip" # Options: clip, blip
+  variant: "vit-b/32" # Model variant
+
+# Dataset configuration
+dataset:
+  name: "nlphuji/flickr30k" # Dataset from Hugging Face
+  split: "test"
+  max_samples: 100 # Limit number of samples for faster testing
+
+# Attack configuration
+attack:
+  epsilon: 0.0313725 # 8/255
+  steps: 2
+  step_size: 0.0235294 # 6/255
+
+# Defense configurations to test
+defenses:
+  - name: "CP Final Norm (R=64, α=0.5)"
+    method: "cp"
+    rank: 64
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Attention (R=64, α=0.5)"
+    method: "cp"
+    rank: 64
+    alpha: 0.5
+    target_layer: "attention"
+    vision_layer_idx: -1
+
+  - name: "CP MLP (R=64, α=0.5)"
+    method: "cp"
+    rank: 64
+    alpha: 0.5
+    target_layer: "mlp"
+    vision_layer_idx: -1
+
+  - name: "Tucker Final Norm (R=64, α=0.5)"
+    method: "tucker"
+    rank: 64
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Final Norm (R=64, α=0.3)"
+    method: "cp"
+    rank: 64
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Final Norm (R=64, α=0.7)"
+    method: "cp"
+    rank: 64
+    alpha: 0.7
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Final Norm (R=32, α=0.5)"
+    method: "cp"
+    rank: 32
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Final Norm (R=128, α=0.5)"
+    method: "cp"
+    rank: 128
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Multi-Layer (2 Layers)"
+    layers:
+      - method: "cp"
+        rank: 64
+        alpha: 0.5
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "cp"
+        rank: 64
+        alpha: 0.5
+        target_layer: "final_norm"
+        vision_layer_idx: -2

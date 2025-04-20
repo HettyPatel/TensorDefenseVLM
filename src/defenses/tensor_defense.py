@@ -1,25 +1,36 @@
 """
-Tensor decomposition defense for Vision-Language Models.
+Targeted tensor decomposition defense for Vision-Language Models
 
-This module implements tensor decomposition methods (CP, Tucker, Tensor Train)
-applied to specific layers of vision encoders to defend against adversarial attacks.
+This module implements tensor decomposition as a defense against adversarial attacks
+by applying it to intermediate representations in vision-language models.
 """
 
 import torch
 import logging
 import tensorly as tl
 from tensorly.decomposition import parafac, tucker, tensor_train
-from .base_defense import BaseTensorDefense
+from .base import BaseTensorDefense
 
 logger = logging.getLogger("tensor_defense")
 
 class TargetedTensorDefense(BaseTensorDefense):
     """Targeted tensor decomposition defense for Vision-Language Models
     
-    This class applies tensor decomposition to specific layers of a vision encoder
+    This class applies tensor decomposition to specific layers of a vision-language model
     to defend against adversarial attacks on images. By decomposing and reconstructing
     intermediate representations, the defense aims to remove adversarial perturbations
     while preserving semantic content.
+    
+    Defense Mechanism:
+    1. Forward hooks intercept the output of a targeted layer in the vision encoder
+    2. The layer's output tensor is then decomposed using low-rank tensor decomposition:
+       - CP decomposition: Represents the tensor as a sum of rank-1 tensors
+       - Tucker decomposition: Represents the tensor as a core tensor multiplied by matrices
+       - Tensor Train decomposition: Represents the tensor as a series of contracted core tensors
+    3. The decomposed tensor is reconstructed, which removes high-frequency perturbations
+       while preserving the core semantic information
+    4. A residual connection combines the original output (alpha) with the 
+       reconstructed output (1-alpha), controlling the defense strength
     """
     def __init__(self, model, method='cp', rank=64, alpha=0.5, 
                  target_layer='final_norm', vision_layer_idx=-1):
@@ -27,7 +38,7 @@ class TargetedTensorDefense(BaseTensorDefense):
         Initialize the tensor decomposition defense
         
         Args:
-            model: VLM model to defend (CLIP or LLaVA)
+            model: Vision-language model to defend
             method: 'cp', 'tucker', or 'tt' (tensor train) decomposition
             rank: Rank for tensor decomposition
             alpha: Weight for residual connection (original * alpha + decomposed * (1-alpha))
@@ -49,7 +60,7 @@ class TargetedTensorDefense(BaseTensorDefense):
         logger.info(f"Rank: {rank}, Alpha: {alpha}")
     
     def _register_hooks(self):
-        """Register forward hooks on the targeted layer based on model architecture"""
+        """Register forward hooks on the targeted layer"""
         # Determine model type and structure
         if hasattr(self.model, 'vision_model'):
             # CLIP model
@@ -57,9 +68,6 @@ class TargetedTensorDefense(BaseTensorDefense):
         elif hasattr(self.model, 'vision_encoder'):
             # BLIP model
             self._register_blip_hooks()
-        elif hasattr(self.model, 'vision_tower'):
-            # LLaVA model
-            self._register_llava_hooks()
         else:
             logger.error(f"Unsupported model type: {type(self.model)}")
     
@@ -109,49 +117,51 @@ class TargetedTensorDefense(BaseTensorDefense):
             except (AttributeError, IndexError) as e:
                 logger.error(f"Could not find CLIP vision encoder MLP in layer {layer_idx}: {str(e)}")
     
-    def _register_llava_hooks(self):
-        """Register hooks for LLaVA model architecture"""
-        try:
-            # Access the underlying vision tower (usually a CLIP vision model)
-            vision_model = self.model.vision_tower.vision_model
-            
-            # Get total number of vision layers for negative indexing
-            num_vision_layers = len(vision_model.encoder.layers)
-            
-            # Convert negative index to positive if needed
-            layer_idx = self.vision_layer_idx
-            if layer_idx < 0:
-                layer_idx = num_vision_layers + layer_idx
-            
-            # Ensure layer index is valid
-            if layer_idx < 0 or layer_idx >= num_vision_layers:
-                logger.error(f"Invalid vision layer index: {self.vision_layer_idx}")
-                return
-            
-            # Target the specified layer type
-            if self.target_layer == 'final_norm':
-                # Final layer norm after the MLP
-                vision_module = vision_model.encoder.layers[layer_idx].layer_norm2
-                vision_hook = vision_module.register_forward_hook(self._forward_hook)
-                self.hook_handles.append(vision_hook)
-                logger.info(f"Registered hook on LLaVA vision encoder layer {layer_idx} final norm")
-            
-            elif self.target_layer == 'attention':
-                # Self-attention output
-                vision_module = vision_model.encoder.layers[layer_idx].self_attn.out_proj
-                vision_hook = vision_module.register_forward_hook(self._forward_hook)
-                self.hook_handles.append(vision_hook)
-                logger.info(f"Registered hook on LLaVA vision encoder layer {layer_idx} attention output")
-            
-            elif self.target_layer == 'mlp':
-                # MLP output (fc2)
-                vision_module = vision_model.encoder.layers[layer_idx].mlp.fc2
-                vision_hook = vision_module.register_forward_hook(self._forward_hook)
-                self.hook_handles.append(vision_hook)
-                logger.info(f"Registered hook on LLaVA vision encoder layer {layer_idx} MLP output")
+    def _register_blip_hooks(self):
+        """Register hooks for BLIP model architecture"""
+        # Get total number of vision layers for negative indexing
+        num_vision_layers = len(self.model.vision_encoder.encoder.layer)
         
-        except (AttributeError, IndexError) as e:
-            logger.error(f"Error setting up LLaVA hooks: {str(e)}")
+        # Convert negative index to positive if needed
+        layer_idx = self.vision_layer_idx
+        if layer_idx < 0:
+            layer_idx = num_vision_layers + layer_idx
+        
+        # Ensure layer index is valid
+        if layer_idx < 0 or layer_idx >= num_vision_layers:
+            logger.error(f"Invalid vision layer index: {self.vision_layer_idx}")
+            return
+        
+        # Target the specified layer type
+        if self.target_layer == 'final_norm':
+            try:
+                # LayerNorm after the layer
+                vision_module = self.model.vision_encoder.encoder.layer[layer_idx].layernorm_after
+                vision_hook = vision_module.register_forward_hook(self._forward_hook)
+                self.hook_handles.append(vision_hook)
+                logger.info(f"Registered hook on BLIP vision encoder layer {layer_idx} final norm")
+            except (AttributeError, IndexError) as e:
+                logger.error(f"Could not find BLIP vision encoder final norm in layer {layer_idx}: {str(e)}")
+        
+        elif self.target_layer == 'attention':
+            try:
+                # Self-attention output
+                vision_module = self.model.vision_encoder.encoder.layer[layer_idx].attention.output.dense
+                vision_hook = vision_module.register_forward_hook(self._forward_hook)
+                self.hook_handles.append(vision_hook)
+                logger.info(f"Registered hook on BLIP vision encoder layer {layer_idx} attention output")
+            except (AttributeError, IndexError) as e:
+                logger.error(f"Could not find BLIP vision encoder attention in layer {layer_idx}: {str(e)}")
+        
+        elif self.target_layer == 'mlp':
+            try:
+                # MLP output 
+                vision_module = self.model.vision_encoder.encoder.layer[layer_idx].intermediate.output.dense
+                vision_hook = vision_module.register_forward_hook(self._forward_hook)
+                self.hook_handles.append(vision_hook)
+                logger.info(f"Registered hook on BLIP vision encoder layer {layer_idx} MLP output")
+            except (AttributeError, IndexError) as e:
+                logger.error(f"Could not find BLIP vision encoder MLP in layer {layer_idx}: {str(e)}")
     
     def _forward_hook(self, module, input_tensor, output_tensor):
         """
@@ -185,7 +195,7 @@ class TargetedTensorDefense(BaseTensorDefense):
         """
         try:
             if self.method == 'cp':
-                # Reshape to 3D tensor for CP decomposition if needed
+                # Reshape to 3D tensor for CP decomposition (batch_size, sequence_length, hidden_dim)
                 original_shape = tensor.shape
                 
                 # If tensor is already 3D, use it as is
