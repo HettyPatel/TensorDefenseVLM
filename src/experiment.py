@@ -14,7 +14,7 @@ from datasets import load_dataset
 from torch.utils.data import DataLoader
 
 from src.models.model_loader import load_model
-from src.datasets.dataset_wrapper import HFDatasetWrapper, custom_collate_fn
+from src.custom_datasets.dataset_wrapper import HFDatasetWrapper, custom_collate_fn
 from src.attacks.pgd import PGDAttack
 from src.defenses.tensor_defense import TargetedTensorDefense
 from src.defenses.multi_layer import MultiLayerTensorDefense
