@@ -160,3 +160,177 @@ def create_comparison_plot(results, k=1, save_path="defense_comparison.png"):
     plt.close()
     
     logger.info(f"Saved comparison plot to {save_path}")
+
+def create_parameter_sensitivity_plot(results, metric='recall@1', title=None):
+    """
+    Create a parameter sensitivity plot showing how different parameter values affect the metric.
+    
+    Args:
+        results: Dictionary of results with parameter values as keys
+        metric: Metric to plot (default: 'recall@1')
+        title: Optional title for the plot
+        
+    Returns:
+        matplotlib figure object
+    """
+    # Extract parameter values and metric values
+    param_values = []
+    metric_values = []
+    for param, result in results.items():
+        param_values.append(param)
+        metric_values.append(result[metric])
+    
+    # Create figure with larger size
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Plot metric values with improved styling
+    ax.plot(param_values, metric_values, 
+            marker='o', 
+            linestyle='-', 
+            linewidth=2,
+            markersize=8,
+            color='#2ecc71',  # Emerald green
+            label=f'{metric} (%)')
+    
+    # Add grid for better readability
+    ax.grid(True, linestyle='--', alpha=0.7)
+    
+    # Set labels and title with improved formatting
+    ax.set_xlabel('Parameter Value', fontsize=12, fontweight='bold')
+    ax.set_ylabel(f'{metric} (%)', fontsize=12, fontweight='bold')
+    
+    if title:
+        ax.set_title(title, fontsize=14, fontweight='bold', pad=20)
+    else:
+        ax.set_title(f'Parameter Sensitivity Analysis\n{metric}', 
+                    fontsize=14, fontweight='bold', pad=20)
+    
+    # Format x-axis labels
+    if all(isinstance(x, (int, float)) for x in param_values):
+        ax.xaxis.set_major_formatter(plt.FormatStrFormatter('%.2f'))
+    else:
+        ax.set_xticks(range(len(param_values)))
+        ax.set_xticklabels([str(x) for x in param_values], rotation=45, ha='right')
+    
+    # Set y-axis limits with padding
+    y_min = min(metric_values)
+    y_max = max(metric_values)
+    padding = (y_max - y_min) * 0.1
+    ax.set_ylim(max(0, y_min - padding), min(100, y_max + padding))
+    
+    # Add value labels on points
+    for x, y in zip(param_values, metric_values):
+        ax.annotate(f'{y:.2f}%', 
+                   (x, y), 
+                   textcoords="offset points", 
+                   xytext=(0, 10), 
+                   ha='center',
+                   fontsize=10,
+                   fontweight='bold')
+    
+    # Add legend
+    ax.legend(loc='best', fontsize=10)
+    
+    # Adjust layout
+    plt.tight_layout()
+    
+    return fig
+
+def create_defense_comparison_plot(results, title=None):
+    """
+    Create a bar plot comparing clean, adversarial, and defended recall values.
+    
+    Args:
+        results: Dictionary containing clean, adversarial, and defended recall values
+        title: Optional title for the plot
+        
+    Returns:
+        matplotlib figure object
+    """
+    # Extract recall values
+    clean_recall = results['clean']['recall@1'] * 100
+    adv_recall = results['adversarial']['recall@1'] * 100
+    
+    # Create figure with larger size
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Define colors
+    colors = {
+        'clean': '#2ecc71',      # Emerald green
+        'adversarial': '#e74c3c', # Alizarin red
+        'defended': '#3498db'    # Peter River blue
+    }
+    
+    # Plot clean and adversarial bars
+    bars = []
+    bar_labels = ['Clean', 'Adversarial']
+    bar_values = [clean_recall, adv_recall]
+    bar_colors = [colors['clean'], colors['adversarial']]
+    
+    # Plot defended bars for each defense
+    for defense_name, defense_results in results.items():
+        if defense_name not in ['clean', 'adversarial']:
+            defended_recall = defense_results['recall@1'] * 100
+            bar_labels.append(defense_name)
+            bar_values.append(defended_recall)
+            bar_colors.append(colors['defended'])
+    
+    # Create bars with improved styling
+    bars = ax.bar(range(len(bar_values)), bar_values, 
+                 color=bar_colors,
+                 alpha=0.8,
+                 edgecolor='black',
+                 linewidth=1)
+    
+    # Add value labels on top of bars
+    for bar in bars:
+        height = bar.get_height()
+        ax.annotate(f'{height:.2f}%',
+                   xy=(bar.get_x() + bar.get_width()/2, height),
+                   xytext=(0, 3),
+                   textcoords="offset points",
+                   ha='center', 
+                   va='bottom',
+                   fontsize=10,
+                   fontweight='bold')
+    
+    # Set labels and title with improved formatting
+    ax.set_xlabel('Defense Type', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Recall@1 (%)', fontsize=12, fontweight='bold')
+    
+    if title:
+        ax.set_title(title, fontsize=14, fontweight='bold', pad=20)
+    else:
+        ax.set_title('Defense Performance Comparison', 
+                    fontsize=14, fontweight='bold', pad=20)
+    
+    # Set x-axis ticks and labels
+    ax.set_xticks(range(len(bar_labels)))
+    ax.set_xticklabels(bar_labels, rotation=45, ha='right')
+    
+    # Add grid for better readability
+    ax.grid(True, linestyle='--', alpha=0.7)
+    
+    # Set y-axis limits with padding
+    y_min = min(bar_values)
+    y_max = max(bar_values)
+    padding = (y_max - y_min) * 0.1
+    ax.set_ylim(max(0, y_min - padding), min(100, y_max + padding))
+    
+    # Add legend
+    legend_elements = [
+        plt.Rectangle((0,0), 1, 1, fc=colors['clean']),
+        plt.Rectangle((0,0), 1, 1, fc=colors['adversarial']),
+        plt.Rectangle((0,0), 1, 1, fc=colors['defended'])
+    ]
+    ax.legend(legend_elements, ['Clean', 'Adversarial', 'Defended'],
+             loc='upper right',
+             fontsize=10)
+    
+    # Add horizontal line at clean performance for reference
+    ax.axhline(y=clean_recall, color='gray', linestyle='--', alpha=0.5)
+    
+    # Adjust layout
+    plt.tight_layout()
+    
+    return fig
