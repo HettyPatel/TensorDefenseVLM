@@ -1,0 +1,37 @@
+{
+  "clean": {
+    "recall@1": 0.92578125,
+    "recall@5": 0.998046875,
+    "recall@10": 0.96875
+  },
+  "adversarial": {
+    "recall@1": 0.0751953125,
+    "recall@5": 0.2451171875,
+    "recall@10": 0.3515625
+  },
+  "CP Final Norm (R=16)": {
+    "recall@1": 0.1083984375,
+    "recall@5": 0.3046875,
+    "recall@10": 0.421875
+  },
+  "CP Final Norm (R=32)": {
+    "recall@1": 0.107421875,
+    "recall@5": 0.30078125,
+    "recall@10": 0.4228515625
+  },
+  "CP Final Norm (R=64)": {
+    "recall@1": 0.1064453125,
+    "recall@5": 0.310546875,
+    "recall@10": 0.4248046875
+  },
+  "CP Final Norm (R=128)": {
+    "recall@1": 0.1044921875,
+    "recall@5": 0.3046875,
+    "recall@10": 0.4140625
+  },
+  "CP Final Norm (R=256)": {
+    "recall@1": 0.0859375,
+    "recall@5": 0.2822265625,
+    "recall@10": 0.39453125
+  }
+}

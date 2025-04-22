@@ -1,0 +1,57 @@
+{
+  "clean": {
+    "recall@1": 0.658203125,
+    "recall@5": 0.943359375,
+    "recall@10": 0.95703125
+  },
+  "adversarial": {
+    "recall@1": 0.0458984375,
+    "recall@5": 0.1669921875,
+    "recall@10": 0.298828125
+  },
+  "CP Final Norm (alpha=0.1)": {
+    "recall@1": 0.0625,
+    "recall@5": 0.2607421875,
+    "recall@10": 0.396484375
+  },
+  "CP Final Norm (alpha=0.2)": {
+    "recall@1": 0.0634765625,
+    "recall@5": 0.2470703125,
+    "recall@10": 0.396484375
+  },
+  "CP Final Norm (alpha=0.3)": {
+    "recall@1": 0.060546875,
+    "recall@5": 0.244140625,
+    "recall@10": 0.3984375
+  },
+  "CP Final Norm (alpha=0.4)": {
+    "recall@1": 0.0615234375,
+    "recall@5": 0.240234375,
+    "recall@10": 0.39453125
+  },
+  "CP Final Norm (alpha=0.5)": {
+    "recall@1": 0.0576171875,
+    "recall@5": 0.2294921875,
+    "recall@10": 0.37890625
+  },
+  "CP Final Norm (alpha=0.6)": {
+    "recall@1": 0.0556640625,
+    "recall@5": 0.216796875,
+    "recall@10": 0.376953125
+  },
+  "CP Final Norm (alpha=0.7)": {
+    "recall@1": 0.0498046875,
+    "recall@5": 0.197265625,
+    "recall@10": 0.361328125
+  },
+  "CP Final Norm (alpha=0.8)": {
+    "recall@1": 0.0478515625,
+    "recall@5": 0.1904296875,
+    "recall@10": 0.3447265625
+  },
+  "CP Final Norm (alpha=0.9)": {
+    "recall@1": 0.0498046875,
+    "recall@5": 0.17578125,
+    "recall@10": 0.3212890625
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "clean": {
+    "recall@1": 0.92578125,
+    "recall@5": 0.998046875,
+    "recall@10": 0.96875
+  },
+  "adversarial": {
+    "recall@1": 0.0751953125,
+    "recall@5": 0.2451171875,
+    "recall@10": 0.3515625
+  },
+  "CP Final Norm (Single Layer)": {
+    "recall@1": 0.10546875,
+    "recall@5": 0.3056640625,
+    "recall@10": 0.4248046875
+  },
+  "CP Multi-Layer (2 Layers)": {
+    "recall@1": 0.1435546875,
+    "recall@5": 0.34765625,
+    "recall@10": 0.4775390625
+  },
+  "CP Multi-Layer (3 Layers)": {
+    "recall@1": 0.1533203125,
+    "recall@5": 0.4140625,
+    "recall@10": 0.55859375
+  },
+  "CP Multi-Layer (4 Layers)": {
+    "recall@1": 0.13671875,
+    "recall@5": 0.416015625,
+    "recall@10": 0.5810546875
+  },
+  "CP Multi-Layer (5 Layers)": {
+    "recall@1": 0.1533203125,
+    "recall@5": 0.462890625,
+    "recall@10": 0.6142578125
+  },
+  "CP Multi-Layer (All Layers)": {
+    "recall@1": 0.05859375,
+    "recall@5": 0.25,
+    "recall@10": 0.375
+  }
+}

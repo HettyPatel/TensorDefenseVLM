@@ -22,43 +22,71 @@ attack:
   step_size: 0.0235294 # 6/255
 
 defenses:
-  - name: "CP Final Norm (alpha=0.3)"
+  - name: "CP Final Norm (alpha=0.2)"
     method: "cp"
-    rank: 64
-    alpha: 0.3
+    rank: 32
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
 
-  - name: "CP Attention (alpha=0.3)"
+  - name: "CP Attention (alpha=0.2)"
     method: "cp"
-    rank: 64
-    alpha: 0.3
+    rank: 32
+    alpha: 0.2
     target_layer: "attention"
     vision_layer_idx: -1
 
-  - name: "CP MLP (alpha=0.3)"
+  - name: "CP MLP (alpha=0.2)"
     method: "cp"
-    rank: 64
-    alpha: 0.3
+    rank: 32
+    alpha: 0.2
     target_layer: "mlp"
     vision_layer_idx: -1
 
-  - name: "Tucker Final Norm (alpha=0.3)"
+  - name: "Tucker Final Norm (alpha=0.2)"
     method: "tucker"
-    rank: 64
-    alpha: 0.3
+    rank: 32
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
     
   - name: "CP Multi-Layer (2 Layers)"
     layers:
       - method: "cp"
-        rank: 64
-        alpha: 0.3
+        rank: 32
+        alpha: 0.2
         target_layer: "final_norm"
         vision_layer_idx: -1
       - method: "cp"
-        rank: 64
-        alpha: 0.3
+        rank: 32
+        alpha: 0.2
         target_layer: "final_norm"
         vision_layer_idx: -2
+
+  - name: "CP Multi-Layer (5 Layers)"
+    layers:
+      - method: "cp"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "cp"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -2
+      - method: "cp"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -3
+      - method: "cp"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -4
+      - method: "cp"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -5

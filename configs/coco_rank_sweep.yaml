@@ -25,34 +25,34 @@ defenses:
   - name: "CP Final Norm (R=16)"
     method: "cp"
     rank: 16
-    alpha: 0.3
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
     
   - name: "CP Final Norm (R=32)"
     method: "cp"
     rank: 32
-    alpha: 0.3
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
     
   - name: "CP Final Norm (R=64)"
     method: "cp"
     rank: 64
-    alpha: 0.3
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
     
   - name: "CP Final Norm (R=128)"
     method: "cp"
     rank: 128
-    alpha: 0.3
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1
     
   - name: "CP Final Norm (R=256)"
     method: "cp"
     rank: 256
-    alpha: 0.3
+    alpha: 0.2
     target_layer: "final_norm"
     vision_layer_idx: -1

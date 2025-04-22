@@ -1,0 +1,80 @@
+attack:
+  epsilon: 0.0313725
+  step_size: 0.0235294
+  steps: 10
+batch_size: 32
+dataset:
+  max_samples: 3000
+  name: nlphuji/flickr30k
+  split: test
+  trust_remote_code: true
+defenses:
+- alpha: 0.3
+  method: cp
+  name: CP Final Norm (alpha=0.3)
+  rank: 64
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.3
+  method: cp
+  name: CP Attention (alpha=0.3)
+  rank: 64
+  target_layer: attention
+  vision_layer_idx: -1
+- alpha: 0.3
+  method: cp
+  name: CP MLP (alpha=0.3)
+  rank: 64
+  target_layer: mlp
+  vision_layer_idx: -1
+- alpha: 0.3
+  method: tucker
+  name: Tucker Final Norm (alpha=0.3)
+  rank: 64
+  target_layer: final_norm
+  vision_layer_idx: -1
+- layers:
+  - alpha: 0.3
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -1
+  - alpha: 0.3
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -2
+  name: CP Multi-Layer (2 Layers)
+- layers:
+  - alpha: 0.2
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -1
+  - alpha: 0.2
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -2
+  - alpha: 0.2
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -3
+  - alpha: 0.2
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -4
+  - alpha: 0.2
+    method: cp
+    rank: 64
+    target_layer: final_norm
+    vision_layer_idx: -5
+  name: CP Multi-Layer (5 Layers)
+model:
+  name: clip
+  variant: vit-base-patch32
+num_workers: 4
+results_dir: results
+seed: 42
