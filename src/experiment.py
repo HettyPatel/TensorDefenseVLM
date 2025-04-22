@@ -10,7 +10,7 @@ import yaml
 import time
 import json
 import pandas as pd
-from datasets import load_dataset
+from datasets import load_dataset, DownloadConfig
 from torch.utils.data import DataLoader
 
 from src.models.model_loader import load_model
@@ -20,6 +20,10 @@ from src.defenses.tensor_defense import TargetedTensorDefense
 from src.defenses.multi_layer import MultiLayerTensorDefense
 from src.utils.metrics import calculate_metrics, print_metrics_summary
 from src.utils.visualization import save_sample_images, create_recall_comparison_plot, create_all_paper_plots
+
+# hugging face timeout error fix
+download_config = DownloadConfig(storage_options={"timeout": 3600})
+
 
 # Configure logging
 logging.basicConfig(
@@ -98,7 +102,32 @@ def run_experiment(config_path):
     
     logger.info(f"Loading dataset: {dataset_name}, split: {split}, max_samples: {max_samples}")
     
-    hf_dataset = load_dataset(dataset_name)
+    # Handle different dataset loading based on the dataset name
+    if 'MSCOCO' in dataset_name:
+        # For COCO dataset
+        year = dataset_config.get('year', 2014)
+        coco_task = dataset_config.get('coco_task', 'captions')
+        
+        logger.info(f"Loading COCO dataset: year={year}, task={coco_task}")
+        
+        try:
+            # Explicitly set trust_remote_code to True for COCO
+            hf_dataset = load_dataset(
+                dataset_name,
+                year=year,
+                coco_task=coco_task,
+                trust_remote_code=True,
+                download_config=download_config
+            )
+            logger.info(f"Successfully loaded COCO dataset")
+        except Exception as e:
+            logger.error(f"Error loading COCO dataset: {str(e)}")
+            raise
+    else:
+        # For other datasets like Flickr30k
+        logger.info(f"Loading regular dataset: {dataset_name}")
+        hf_dataset = load_dataset(dataset_name)
+    
     dataset = HFDatasetWrapper(hf_dataset, split=split, max_samples=max_samples)
     
     # Use single batch size for all operations
@@ -117,7 +146,7 @@ def run_experiment(config_path):
     # Configure attack
     attack_config = config['attack']
     epsilon = attack_config.get('epsilon', 8/255)
-    steps = attack_config.get('steps', 2)
+    steps = attack_config.get('steps', 10)
     step_size = attack_config.get('step_size', 6/255)
     
     logger.info(f"Configuring PGD attack: epsilon={epsilon}, steps={steps}, step_size={step_size}")
@@ -334,14 +363,14 @@ def run_experiment(config_path):
     # Print final metrics
     print_metrics_summary(all_results)
     
-    # Create standard comparison plot (current code)
+    # Create standard comparison plot
     comparison_plot = create_recall_comparison_plot(all_results)
     comparison_plot.savefig(os.path.join(figures_dir, 'defense_comparison.png'))
 
     # Generate all paper plots
-    visualize_experiment_results(all_results, config, figures_dir)  # Pass figures_dir instead of results_dir
+    visualize_experiment_results(all_results, config, figures_dir)
 
-    # Save metrics to CSV in the metrics directory
+    # Save metrics to CSV
     metrics_df = pd.DataFrame()
     for defense_name, defense_results in all_results.items():
         row = {

@@ -1,4 +1,0 @@
-Attack Parameters:
-Epsilon: 0.0313725
-Steps: 10
-Step Size: 0.0235294

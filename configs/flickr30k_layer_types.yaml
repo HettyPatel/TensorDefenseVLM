@@ -1,0 +1,42 @@
+# Layer type comparison (Flickr30k)
+seed: 42
+results_dir: "results"
+batch_size: 32
+num_workers: 4
+
+model:
+  name: "clip"
+  variant: "vit-base-patch32"
+
+dataset:
+  name: "nlphuji/flickr30k"
+  split: "test"
+  max_samples: 1000
+  trust_remote_code: true
+
+attack:
+  epsilon: 0.0313725 # 8/255
+  steps: 10
+  step_size: 0.0235294 # 6/255
+
+defenses:
+  - name: "CP Final Norm"
+    method: "cp"
+    rank: 64
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+    
+  - name: "CP Attention"
+    method: "cp"
+    rank: 64
+    alpha: 0.3
+    target_layer: "attention"
+    vision_layer_idx: -1
+    
+  - name: "CP MLP"
+    method: "cp"
+    rank: 64
+    alpha: 0.3
+    target_layer: "mlp"
+    vision_layer_idx: -1
