@@ -1,0 +1,85 @@
+# Full MSCOCO experiment with Tensor Train decomposition
+seed: 42
+results_dir: "results"
+batch_size: 32
+num_workers: 4
+
+model:
+  name: "clip"
+  variant: "vit-base-patch32"
+
+dataset:
+  name: "shunk031/MSCOCO"
+  year: 2014
+  coco_task: "captions"
+  split: "train"
+  max_samples: 3000
+  trust_remote_code: true
+
+attack:
+  epsilon: 0.0313725 # 8/255
+  steps: 10
+  step_size: 0.0235294 # 6/255
+
+defenses:
+  - name: "TT Final Norm (alpha=0.2)"
+    method: "tt"
+    rank: 32
+    alpha: 0.2
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "TT Attention (alpha=0.2)"
+    method: "tt"
+    rank: 32
+    alpha: 0.2
+    target_layer: "attention"
+    vision_layer_idx: -1
+
+  - name: "TT MLP (alpha=0.2)"
+    method: "tt"
+    rank: 32
+    alpha: 0.2
+    target_layer: "mlp"
+    vision_layer_idx: -1
+
+  - name: "TT Multi-Layer (2 Layers)"
+    layers:
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -2
+        
+  - name: "TT Multi-Layer (5 Layers)"
+    layers:
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -2
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -3
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -4
+      - method: "tt"
+        rank: 32
+        alpha: 0.2
+        target_layer: "final_norm"
+        vision_layer_idx: -5 

@@ -1,0 +1,144 @@
+# Comprehensive tensor decomposition defense evaluation
+seed: 42
+results_dir: "results/comprehensive_evaluation"
+batch_size: 32
+num_workers: 4
+
+model:
+  name: "clip"
+  variant: "vit-base-patch32"
+
+dataset:
+  name: "nlphuji/flickr30k"
+  split: "test"
+  max_samples: 3000
+  trust_remote_code: true
+
+attack:
+  epsilon: 0.0313725 # 8/255
+  steps: 10
+  step_size: 0.0235294 # 6/255
+
+defenses:
+  # Different ranks comparison (keeping alpha=0.3 constant)
+  - name: "CP Norm R=16"
+    method: "cp"
+    rank: 16
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm R=32"
+    method: "cp"
+    rank: 32
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm R=64"
+    method: "cp"
+    rank: 64
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm R=128"
+    method: "cp"
+    rank: 128
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  # Alpha variations (with fixed rank=32)
+  - name: "CP Norm alpha=0.1"
+    method: "cp"
+    rank: 32
+    alpha: 0.1
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm alpha=0.3"
+    method: "cp"
+    rank: 32
+    alpha: 0.3
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm alpha=0.5"
+    method: "cp"
+    rank: 32
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  - name: "CP Norm alpha=0.7"
+    method: "cp"
+    rank: 32
+    alpha: 0.7
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  # Different layer targets (with fixed rank=32, alpha=0.3)
+  - name: "CP Attention"
+    method: "cp"
+    rank: 32
+    alpha: 0.3
+    target_layer: "attention"
+    vision_layer_idx: -1
+
+  - name: "CP MLP"
+    method: "cp"
+    rank: 32
+    alpha: 0.3
+    target_layer: "mlp"
+    vision_layer_idx: -1
+
+  # Different decomposition methods (with fixed rank=32, alpha=0.5)
+  - name: "Tucker Norm"
+    method: "tucker"
+    rank: 32
+    alpha: 0.5
+    target_layer: "final_norm"
+    vision_layer_idx: -1
+
+  # Multi-layer configurations (with fixed rank=32)
+  - name: "CP Multi-Layer (2 Layers)"
+    layers:
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -2
+
+  - name: "CP Multi-Layer (Last 5 Layers)"
+    layers:
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -1
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -2
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -3
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -4
+      - method: "cp"
+        rank: 32
+        alpha: 0.3
+        target_layer: "final_norm"
+        vision_layer_idx: -5

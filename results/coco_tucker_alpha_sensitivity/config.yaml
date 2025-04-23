@@ -1,0 +1,73 @@
+attack:
+  epsilon: 0.0313725
+  step_size: 0.0235294
+  steps: 10
+batch_size: 32
+dataset:
+  coco_task: captions
+  max_samples: 1000
+  name: shunk031/MSCOCO
+  split: train
+  trust_remote_code: true
+  year: 2014
+defenses:
+- alpha: 0.1
+  method: tucker
+  name: Tucker Alpha 0.1
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.2
+  method: tucker
+  name: Tucker Alpha 0.2
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.3
+  method: tucker
+  name: Tucker Alpha 0.3
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.4
+  method: tucker
+  name: Tucker Alpha 0.4
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.5
+  method: tucker
+  name: Tucker Alpha 0.5
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.6
+  method: tucker
+  name: Tucker Alpha 0.6
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.7
+  method: tucker
+  name: Tucker Alpha 0.7
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.8
+  method: tucker
+  name: Tucker Alpha 0.8
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+- alpha: 0.9
+  method: tucker
+  name: Tucker Alpha 0.9
+  rank: 32
+  target_layer: final_norm
+  vision_layer_idx: -1
+model:
+  name: clip
+  variant: vit-base-patch32
+num_workers: 4
+results_dir: results
+seed: 42
