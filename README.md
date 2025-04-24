@@ -248,7 +248,7 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @article{yourcitation,
-  title={TensorDefenseVLM: Tensor Decomposition Defense for Vision-Language Models},
+  title={Robust Vision-Language Models via Tensor Decomposition: A Defense Against Adversarial Attacks},
   author={Your Name},
   journal={Your Journal},
   year={2024}
