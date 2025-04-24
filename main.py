@@ -43,6 +43,8 @@ def main():
     parser.add_argument('--experiment_name', type=str, default=None, 
                       help='Custom experiment name (defaults to config filename)')
     parser.add_argument('--create-dirs', action='store_true', help='Create directory structure')
+    parser.add_argument('--run-efficiency', action='store_true', 
+                   help='Run computational efficiency analysis')
     
     args = parser.parse_args()
     
@@ -52,6 +54,11 @@ def main():
     # For each experiment config, create a separate folder
     config_path = args.config
     experiment_name = args.experiment_name
+
+    if args.run_efficiency:
+        from src.utils.computational_efficiency import main as run_efficiency_analysis
+        run_efficiency_analysis()
+        return
     
     if experiment_name:
         # Read config
@@ -72,7 +79,7 @@ def main():
         # Clean up temp file
         os.remove(temp_config_path)
     else:
-        # Just use the config filename as experiment name
+        # use the config filename as experiment name
         results_dir, results = run_experiment(config_path)
     
     logger.info(f"Experiment completed. Results available in {results_dir}")
