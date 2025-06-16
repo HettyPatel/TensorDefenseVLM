@@ -249,9 +249,9 @@ If you use this code in your research, please cite:
 ```bibtex
 @article{yourcitation,
   title={Robust Vision-Language Models via Tensor Decomposition: A Defense Against Adversarial Attacks},
-  author={Your Name},
-  journal={Your Journal},
-  year={2024}
+  author={placeholder},
+  journal={placeholder},
+  year={2025}
 }
 ```
 
