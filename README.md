@@ -247,7 +247,7 @@ results/
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{yourcitation,
+@article{placeholder,
   title={Robust Vision-Language Models via Tensor Decomposition: A Defense Against Adversarial Attacks},
   author={placeholder},
   journal={placeholder},
@@ -266,3 +266,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Contact
 
 For questions or suggestions, please open an issue or contact the maintainers. 
+
+## Acknowledgment
+Research was supported in part by the National Science Foundation under CAREER grant no. IIS 2046086, grant no. No. 2431569 and CREST Center for Multidisciplinary Research Excellence in CyberPhysical Infrastructure Systems (MECIS) grant no. 2112650. Research was also sponsored in part by the Army Research Office and was accomplished under Grant Number W911NF-24-1-0397. The views and conclusions contained in this document are those of the authors and should not be interpreted as representing the official policies, either expressed or implied, of the Army Research Office or the U.S. Government. The U.S. Government is authorized to reproduce and distribute reprints for Government purposes notwithstanding any copyright notation herein
