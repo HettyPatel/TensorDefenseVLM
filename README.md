@@ -247,13 +247,13 @@ results/
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{placeholder,
+@misc{patel2025robust,
   title={Robust Vision-Language Models via Tensor Decomposition: A Defense Against Adversarial Attacks},
-  author={placeholder},
-  journal={placeholder},
-  year={2025}
+  author={Patel, Het and Allie, Muzammil and Zhang, Qian and Chen, Jia and Papalexakis, Evangelos E.},
+  howpublished={SafeMM-AI Workshop at IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year={2025},
+  note={Workshop paper}
 }
-```
 
 ## License
 
