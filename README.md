@@ -242,6 +242,7 @@ results/
 │   └── results.json    # Complete experiment results
 ```
 
+<!--
 ## Citation
 
 If you use this code in your research, please cite:
@@ -254,7 +255,7 @@ If you use this code in your research, please cite:
   year={2025},
   note={Workshop paper}
 }
-
+-->
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
